@@ -53,81 +53,83 @@ class _ComponentsScreenState extends State<MainPage> {
   @override
   Widget build(context) {
     return Scaffold(
-      body: PageView(
-        controller: _pageController,
-        physics: const NeverScrollableScrollPhysics(),
-        children: const [
-          HomePage(),
-          HomePage(),
-          HomePage(),
-          ComponentScreen(),
-        ],
-        // onPageChanged: (index) {
-          // setState(() {
-          //   _currentIndex = index;
-          // });
-        // },
-      ),
-      bottomNavigationBar: SafeArea(
-        child: Container(
-          height: 65,
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          margin: const EdgeInsets.only(left: 24, right: 24, bottom: 16),
-          decoration: BoxDecoration(
-            color: CeylonScapeColor.primary30,
-            borderRadius: const BorderRadius.all(Radius.circular(24)),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0xff1A9BE3).withOpacity(0.6),
-                offset: const Offset(0, 4),
-                blurRadius: 18,
-              )
-            ]
+      body: Stack(
+        children: [
+          PageView(
+            controller: _pageController,
+            physics: const NeverScrollableScrollPhysics(),
+            children: const [
+              HomePage(),
+              HomePage(),
+              HomePage(),
+              ComponentScreen(),
+            ],
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: List.generate(
-                navLinks.length,
-                (index) => GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _currentIndex = index;
-                      _pageController.animateToPage(
-                        index,
-                        duration: const Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
-                    });
-                  },
-                  child: SizedBox(
-                    height: 45,
-                    width: 60,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPicture.asset(
-                          navLinks[index].icon, // Update the path to your SVG file
-                          height: 28,
-                          width: 28,
-                          color: _currentIndex == index
-                              ? CeylonScapeColor.primary80
-                              : CeylonScapeColor.primary5,
-                        ),
-                        Text(
-                          navLinks[index].label,
-                          style: CeylonScapeFont.captionAccent.copyWith(
-                            color: _currentIndex == index
-                                ? CeylonScapeColor.primary80
-                                : CeylonScapeColor.primary5
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: SafeArea(
+              child: Container(
+                height: 65,
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                margin: const EdgeInsets.only(left: 36, right: 36, bottom: 12),
+                decoration: BoxDecoration(
+                    color: CeylonScapeColor.primary30,
+                    borderRadius: const BorderRadius.all(Radius.circular(24)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: const Color(0xff1A9BE3).withOpacity(0.6),
+                        offset: const Offset(0, 4),
+                        blurRadius: 18,
+                      )
+                    ]
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: List.generate(
+                      navLinks.length,
+                          (index) => GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _currentIndex = index;
+                            _pageController.animateToPage(
+                              index,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                          });
+                        },
+                        child: SizedBox(
+                          height: 45,
+                          width: 60,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SvgPicture.asset(
+                                navLinks[index].icon, // Update the path to your SVG file
+                                height: 28,
+                                width: 28,
+                                color: _currentIndex == index
+                                    ? CeylonScapeColor.primary80
+                                    : CeylonScapeColor.primary5,
+                              ),
+                              Text(
+                                navLinks[index].label,
+                                style: CeylonScapeFont.captionAccent.copyWith(
+                                    color: _currentIndex == index
+                                        ? CeylonScapeColor.primary80
+                                        : CeylonScapeColor.primary5
+                                ),
+                              )
+                            ],
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      )
                   ),
-                )
+                ),
+              ),
             ),
-          ),
-        ),
+          )
+        ],
       ),
     );
   }
