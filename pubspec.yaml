@@ -58,6 +58,7 @@ dependencies:
   percent_indicator: ^4.2.3
   iconsax: ^0.0.8
   dropdown_button2: ^2.3.9
+  searchfield: ^1.0.9
 
 dev_dependencies:
   flutter_test:
@@ -86,6 +87,7 @@ flutter:
      - assets/images/
      - assets/icons/
      - assets/images/packages/
+     - assets/images/quick_access/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
