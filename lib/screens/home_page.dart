@@ -16,7 +16,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final CarouselController _carouselController = CarouselController();
   TextEditingController searchController = TextEditingController();
   List<SearchItem> items = [
     SearchItem(label: 'Home', route: const ComponentScreen()),
