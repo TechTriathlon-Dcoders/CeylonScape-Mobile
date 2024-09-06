@@ -54,7 +54,6 @@ class EntryVisaFormPageThree extends StatelessWidget {
                 return TextInput(
                   labelText: 'Number*',
                   controller: _visaController.passportNumberController,
-                  // helpText: 'Enter a valid passport number',
                   placeholderText: 'Number',
                   helpText: _visaController.passportNumberHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInThirdPage.value
@@ -67,7 +66,6 @@ class EntryVisaFormPageThree extends StatelessWidget {
                 return TextInput(
                   labelText: 'Place of issue*',
                   controller: _visaController.placeOfPassportIssueController,
-                  // helpText: 'Enter a valid place',
                   placeholderText: 'Place',
                   helpText: _visaController.placeOfPassportIssueHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInThirdPage.value
@@ -80,7 +78,6 @@ class EntryVisaFormPageThree extends StatelessWidget {
                 return DateInput(
                   labelText: 'Date of issue*',
                   controller: _visaController.dateOfPassportIssueController,
-                  // helpText: 'Enter a valid date',
                   placeholderText: 'YYYY:MM:DD',
                   helpText: _visaController.dateOfPassportIssueHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInThirdPage.value
@@ -93,7 +90,6 @@ class EntryVisaFormPageThree extends StatelessWidget {
                 return DateInput(
                   labelText: 'Date of expiry*',
                   controller: _visaController.dateOfPassportExpiryController,
-                  // helpText: 'Enter a valid date',
                   placeholderText: 'YYYY:MM:DD',
                   helpText: _visaController.dateOfPassportExpiryHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInThirdPage.value
@@ -113,7 +109,6 @@ class EntryVisaFormPageThree extends StatelessWidget {
                 return TextInput(
                   labelText: 'Number*',
                   controller: _visaController.previousPassportNumberController,
-                  // helpText: 'Enter a valid date',
                   placeholderText: 'Number',
                   helpText: _visaController.previousPassportNumberHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInThirdPage.value
@@ -126,7 +121,6 @@ class EntryVisaFormPageThree extends StatelessWidget {
                 return TextInput(
                   labelText: 'Place of issue*',
                   controller: _visaController.placeOfPreviousPassportIssueController,
-                  // helpText: 'Enter a valid place',
                   placeholderText: 'Place',
                   helpText: _visaController.placeOfPreviousPassportIssueHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInThirdPage.value
@@ -139,7 +133,6 @@ class EntryVisaFormPageThree extends StatelessWidget {
                 return DateInput(
                   labelText: 'Date of issue*',
                   controller: _visaController.dateOfPreviousPassportIssueController,
-                  // helpText: 'Enter a valid date',
                   placeholderText: 'YYYY:MM:DD',
                   helpText: _visaController.dateOfPreviousPassportIssueHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInThirdPage.value
@@ -152,7 +145,6 @@ class EntryVisaFormPageThree extends StatelessWidget {
                 return DateInput(
                   labelText: 'Date of expiry*',
                   controller: _visaController.dateOfPreviousPassportExpiryController,
-                  // helpText: 'Enter a valid date',
                   placeholderText: 'YYYY:MM:DD',
                   helpText: _visaController.dateOfPassportExpiryHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInThirdPage.value
@@ -210,26 +202,3 @@ class EntryVisaFormPageThree extends StatelessWidget {
     );
   }
 }
-
-List<String> countries = [
-  'India',
-  'Russia',
-  'United Kingdom',
-  'Germany',
-  'France',
-  'China',
-  'Australia',
-  'United States',
-  'Canada',
-  'Japan',
-  'Switzerland',
-  'Spain',
-  'Maldives',
-  'Netherlands',
-  'Israel',
-  'Italy',
-  'Poland',
-  'Bangladesh',
-  'Czech Republic',
-  'Malaysia'
-];

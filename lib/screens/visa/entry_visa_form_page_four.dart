@@ -46,10 +46,12 @@ class EntryVisaFormPageFour extends StatelessWidget {
 
             if (_visaController.isCivilStatusMarried())
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'Spouse details',
                     style: CeylonScapeFont.featureAccent,
+                    textAlign: TextAlign.left,
                   ),
                   const SizedBox(height: 20,),
 
@@ -57,7 +59,6 @@ class EntryVisaFormPageFour extends StatelessWidget {
                       return TextInput(
                         labelText: 'Full Name*',
                         controller: _visaController.spouseFullNameController,
-                        // helpText: 'Enter a valid passport number',
                         placeholderText: 'Full name',
                         helpText: _visaController.spouseFullNameHintMessage.value.isNotEmpty
                             && _visaController.hasAttemptNextInFourthPage.value
@@ -70,7 +71,6 @@ class EntryVisaFormPageFour extends StatelessWidget {
                       return TextInput(
                         labelText: 'Nationality*',
                         controller: _visaController.spouseNationalityController,
-                        // helpText: 'Enter a valid place',
                         placeholderText: 'Nationality',
                         helpText: _visaController.spouseNationalityHintMessage.value.isNotEmpty
                             && _visaController.hasAttemptNextInFourthPage.value
@@ -83,7 +83,6 @@ class EntryVisaFormPageFour extends StatelessWidget {
                       return TextInput(
                         labelText: 'Postal address*',
                         controller: _visaController.spousePostalAddressController,
-                        // helpText: 'Enter a valid place',
                         placeholderText: 'Address',
                         helpText: _visaController.spousePostalAddressHintMessage.value.isNotEmpty
                             && _visaController.hasAttemptNextInFourthPage.value
@@ -96,7 +95,6 @@ class EntryVisaFormPageFour extends StatelessWidget {
                       return TextInput(
                         labelText: 'Passport number*',
                         controller: _visaController.spousePassportNumberController,
-                        // helpText: 'Enter a valid place',
                         placeholderText: 'Passport number',
                         helpText: _visaController.spousePassportNumberHintMessage.value.isNotEmpty
                             && _visaController.hasAttemptNextInFourthPage.value
@@ -109,7 +107,6 @@ class EntryVisaFormPageFour extends StatelessWidget {
                       return DateInput(
                         labelText: 'Date of expiry*',
                         controller: _visaController.spouseDateOfPassportExpiryController,
-                        // helpText: 'Enter a valid date',
                         placeholderText: 'YYYY:MM:DD',
                         helpText: _visaController.spouseDateOfPassportExpiryHintMessage.value.isNotEmpty
                             && _visaController.hasAttemptNextInFourthPage.value
@@ -172,7 +169,6 @@ class EntryVisaFormPageFour extends StatelessWidget {
                 return DateInput(
                   labelText: 'Date',
                   controller: _visaController.dateOfNaturalizedController,
-                  // helpText: 'Enter a valid date',
                   placeholderText: 'YYYY:MM:DD',
                   helpText: _visaController.dateOfNaturalizedHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInFourthPage.value
@@ -185,7 +181,6 @@ class EntryVisaFormPageFour extends StatelessWidget {
                 return TextInput(
                   labelText: 'Place of naturalised',
                   controller: _visaController.placeOfNaturalizedController,
-                  // helpText: 'Enter a valid place',
                   placeholderText: 'Place',
                   helpText: _visaController.placeOfNaturalizedHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInFourthPage.value
@@ -198,7 +193,6 @@ class EntryVisaFormPageFour extends StatelessWidget {
                 return TextInput(
                   labelText: 'Former nationality',
                   controller: _visaController.formerNationalityController,
-                  // helpText: 'Enter a valid place',
                   placeholderText: 'Nationality',
                   helpText: _visaController.formerNationalityHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInFourthPage.value
@@ -257,26 +251,3 @@ class EntryVisaFormPageFour extends StatelessWidget {
     );
   }
 }
-
-List<String> countries = [
-  'India',
-  'Russia',
-  'United Kingdom',
-  'Germany',
-  'France',
-  'China',
-  'Australia',
-  'United States',
-  'Canada',
-  'Japan',
-  'Switzerland',
-  'Spain',
-  'Maldives',
-  'Netherlands',
-  'Israel',
-  'Italy',
-  'Poland',
-  'Bangladesh',
-  'Czech Republic',
-  'Malaysia'
-];

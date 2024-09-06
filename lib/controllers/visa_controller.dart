@@ -1,10 +1,10 @@
 import 'package:CeylonScape/dto/visa/visa_request.dart';
 import 'package:CeylonScape/services/api_service.dart';
-import 'package:CeylonScape/services/auth_service.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class VisaController extends GetxController {
   final ApiService _apiService = ApiService();
@@ -59,11 +59,28 @@ class VisaController extends GetxController {
   final TextEditingController emergencyContactNameOfCreditCardController = TextEditingController();
   final TextEditingController emergencyContactSpendableAmountController = TextEditingController();
   final TextEditingController urgeSupportReasonController = TextEditingController();
+
+  var selectedImagePath = ''.obs;
+  var selectedImageBytes = <int>[].obs;
+
+  final ImagePicker _picker = ImagePicker();
+
+  // Method to pick an image from gallery or camera
+  Future<void> pickImage(ImageSource source) async {
+    final XFile? image = await _picker.pickImage(source: source);
+    if (image != null) {
+      selectedImagePath.value = image.path;
+      selectedImageBytes.value = await image.readAsBytes();
+    }
+  }
+
   final RxBool hasAttemptedApplyVisa = false.obs;
   final RxBool hasAttemptNextInFirstPage = false.obs;
   final RxBool hasAttemptNextInSecondPage = false.obs;
   final RxBool hasAttemptNextInThirdPage = false.obs;
   final RxBool hasAttemptNextInFourthPage = false.obs;
+  final RxBool hasAttemptNextInFifthPage = false.obs;
+  final RxBool hasAttemptNextInSixthPage = false.obs;
 
   RxString fullNameHintMessage = ''.obs;
   RxString nationalityHintMessage = ''.obs;
@@ -101,6 +118,18 @@ class VisaController extends GetxController {
   RxString dateOfNaturalizedHintMessage = ''.obs;
   RxString placeOfNaturalizedHintMessage = ''.obs;
   RxString formerNationalityHintMessage = ''.obs;
+
+  RxString periodForVisitVisaHintMessage = ''.obs;
+  RxString lastPlaceOfResidenceHintMessage = ''.obs;
+  RxString dateOfLeavingHintMessage = ''.obs;
+  RxString lastObtainedVisaTypeHintMessage = ''.obs;
+  RxString lastObtainedVisaDateOfIssueHintMessage = ''.obs;
+  RxString lastObtainedVisaPeriodOfValidityHintMessage = ''.obs;
+
+  RxString emergencyContactNameHintMessage = ''.obs;
+  RxString emergencyContactAddressHintMessage = ''.obs;
+  RxString emergencyContactContactNumberHintMessage = ''.obs;
+  RxString emergencyContactRelationshipHintMessage = ''.obs;
 
   bool validateSignInForm(){
     return true;
@@ -163,6 +192,25 @@ class VisaController extends GetxController {
     ]);
   }
 
+  bool validatePreviouslyInSriLankaFilled() {
+    return validateByGroup([
+      lastPlaceOfResidenceController.text,
+      dateOfLeavingController.text,
+      lastObtainedVisaTypeController.text,
+      lastObtainedVisaDateOfIssueController.text,
+      lastObtainedVisaPeriodOfValidityController.text
+    ]);
+  }
+
+  bool validateEmergencyContactInfoFilled() {
+    return validateByGroup([
+      emergencyContactNameController.text,
+      emergencyContactAddressController.text,
+      emergencyContactContactNumberController.text,
+      emergencyContactRelationshipController.text
+    ]);
+  }
+
   bool validateByGroup(List<String> list) {
     bool allEmpty = list.every((field) => field.isEmpty);
     bool allFilled = list.every((field) => field.isNotEmpty);
@@ -204,7 +252,7 @@ class VisaController extends GetxController {
         : nationalityController.text == formerNationalityController.text
         ? 'Cannot be your current nationality' : '';
 
-    hasAttemptNextInThirdPage.value = true;
+    hasAttemptNextInFourthPage.value = true;
 
     return spouseFullNameHintMessage.value.isEmpty
         && spouseNationalityHintMessage.value.isEmpty
@@ -215,21 +263,109 @@ class VisaController extends GetxController {
         && formerNationalityHintMessage.value.isEmpty;
   }
 
+  bool validateFifthPage() {
+    // routeAndModeOfTravelHintMessage.value =
+    periodForVisitVisaHintMessage.value = periodForVisitVisaController.text.isEmpty ? 'Period is required' : '';
+    lastPlaceOfResidenceHintMessage.value = validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before' : '';
+    dateOfLeavingHintMessage.value = validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before'
+        : validateTwoDates(lastObtainedVisaDateOfIssueController.text, dateOfLeavingController.text, 'Leaving date') ?? '';
+    lastObtainedVisaTypeHintMessage.value = validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before' : '';
+    lastObtainedVisaDateOfIssueHintMessage.value = validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before' : '';
+    lastObtainedVisaPeriodOfValidityHintMessage.value = validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before' : '';
+    // lastObtainedVisaResidenceVisaNumberHintMessage.value =
+    // refusedVisaReasonHintMessage.value =
+
+    hasAttemptNextInFifthPage.value = true;
+
+    return periodForVisitVisaHintMessage.value.isEmpty
+        && lastPlaceOfResidenceHintMessage.value.isEmpty
+        && dateOfLeavingHintMessage.value.isEmpty
+        && lastObtainedVisaTypeHintMessage.value.isEmpty
+        && lastObtainedVisaDateOfIssueHintMessage.value.isEmpty
+        && lastObtainedVisaPeriodOfValidityHintMessage.value.isEmpty;
+  }
+
+  bool validateSixthPage() {
+    emergencyContactNameHintMessage.value = validateEmergencyContactInfoFilled() ? 'Fill all if you have an emergency contact' : '';
+    emergencyContactAddressHintMessage.value = validateEmergencyContactInfoFilled() ? 'Fill all if you have an emergency contact' : '';
+    emergencyContactContactNumberHintMessage.value = validateEmergencyContactInfoFilled() ? 'Fill all if you have an emergency contact'
+        : validateMobileNumber(emergencyContactContactNumberController.text) ?? '';
+    emergencyContactRelationshipHintMessage.value = validateEmergencyContactInfoFilled() ? 'Fill all if you have an emergency contact' : '';
+
+    hasAttemptNextInSixthPage.value = true;
+
+    return emergencyContactNameHintMessage.value.isEmpty
+        && emergencyContactAddressHintMessage.value.isEmpty
+        && emergencyContactContactNumberHintMessage.value.isEmpty
+        && emergencyContactRelationshipHintMessage.value.isEmpty;
+  }
+
   Future<bool> apply() async {
     // check if all fields are filled
-    if (!validateSignInForm()) {
-      Get.snackbar(
-        'Error',
-        'Please recheck all the fields',
-        backgroundColor: Colors.red.withOpacity(0.6),
-        colorText: CeylonScapeColor.black0,
-      );
-      return false;
-    }
+    // if (!validateSignInForm()) {
+    //   Get.snackbar(
+    //     'Error',
+    //     'Please recheck all the fields',
+    //     backgroundColor: Colors.red.withOpacity(0.6),
+    //     colorText: CeylonScapeColor.black0,
+    //   );
+    //   return false;
+    // }
     hasAttemptedApplyVisa.value = false;
 
-    // VisaRequest loginRequest = VisaRequest(
-    //     email: emailController.text, password: passwordController.text);
+    VisaRequest applyVisaRequest = VisaRequest(
+        picture: pictureController.text,
+        fullName: fullNameController.text,
+        nationality: nationalityController.text,
+        gender: genderController.text,
+        dateOfBirth: dateOfBirthController.text,
+        birthPlace: birthPlaceController.text,
+        birthCountry: birthCountryController.text,
+        civilStatus: civilStatusController.text,
+        height: heightController.text,
+        peculiarity: peculiarityController.text,
+        domicileCountryAddress: domicileCountryAddressController.text,
+        sriLankanAddress: sriLankanAddressController.text,
+        telephoneNumber: telephoneNumberController.text,
+        mobileNumber: mobileNumberController.text,
+        email: emailController.text,
+        nameOfWorkPlace: nameOfWorkPlaceController.text,
+        addressOfWorkPlace: addressOfWorkPlaceController.text,
+        workPlaceEmail: workPlaceEmailController.text,
+        passportNumber: passportNumberController.text,
+        placeOfPassportIssue: placeOfPassportIssueController.text,
+        dateOfPassportIssue: dateOfPassportIssueController.text,
+        dateOfPassportExpiry: dateOfPassportExpiryController.text,
+        previousPassportNumber: previousPassportNumberController.text,
+        placeOfPreviousPassportIssue: placeOfPreviousPassportIssueController.text,
+        dateOfPreviousPassportIssue: dateOfPreviousPassportIssueController.text,
+        dateOfPreviousPassportExpiry: dateOfPreviousPassportExpiryController.text,
+        spouseFullName: spouseFullNameController.text,
+        spouseNationality: spouseNationalityController.text,
+        spousePostalAddress: spousePostalAddressController.text,
+        spousePassportNumber: spousePassportNumberController.text,
+        spouseDateOfPassportExpiry: spouseDateOfPassportExpiryController.text,
+        dateOfNaturalized: dateOfNaturalizedController.text,
+        placeOfNaturalized: placeOfNaturalizedController.text,
+        formerNationality: formerNationalityController.text,
+        routeAndModeOfTravel: routeAndModeOfTravelController.text,
+        periodForVisitVisa: periodForVisitVisaController.text,
+        lastPlaceOfResidence: lastPlaceOfResidenceController.text,
+        dateOfLeaving: dateOfLeavingController.text,
+        lastObtainedVisaType: lastObtainedVisaTypeController.text,
+        lastObtainedVisaDateOfIssue: lastObtainedVisaDateOfIssueController.text,
+        lastObtainedVisaPeriodOfValidity: lastObtainedVisaPeriodOfValidityController.text,
+        lastObtainedVisaResidenceVisaNumber: lastObtainedVisaResidenceVisaNumberController.text,
+        refusedVisaReason: refusedVisaReasonController.text,
+        emergencyContactName: emergencyContactNameController.text,
+        emergencyContactAddress: emergencyContactAddressController.text,
+        emergencyContactContactNumber: emergencyContactContactNumberController.text,
+        emergencyContactRelationship: emergencyContactRelationshipController.text,
+        emergencyContactBelongingMoneyAmount: emergencyContactBelongingMoneyAmountController.text,
+        emergencyContactNameOfCreditCard: emergencyContactNameOfCreditCardController.text,
+        emergencyContactSpendableAmount: emergencyContactSpendableAmountController.text,
+        urgeSupportReason: urgeSupportReasonController.text,
+    );
     try {
       final response = await _apiService.sendPostRequest(
         false, // Authentication is not required for login

@@ -81,7 +81,7 @@ class SignInScreen extends StatelessWidget {
                               icon: const Icon(
                                 Icons.check_circle,
                                 size: 26,
-                                color: CeylonScapeColor.primary,
+                                color: CeylonScapeColor.success40,
                               ),
                               shouldIconPulse: true,
                               "Success",

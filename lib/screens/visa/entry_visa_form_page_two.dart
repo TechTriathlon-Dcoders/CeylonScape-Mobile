@@ -47,7 +47,6 @@ class EntryVisaFormPageTwo extends StatelessWidget {
             TextInput(
               labelText: 'Height (in cm)*',
               controller: _visaController.heightController,
-              // helpText: 'Enter a valid passport number',
               placeholderText: 'Height',
               isNumber: true,
             ),
@@ -55,7 +54,6 @@ class EntryVisaFormPageTwo extends StatelessWidget {
             TextInput(
               labelText: 'Peculiarity',
               controller: _visaController.peculiarityController,
-              // helpText: 'Enter a valid place',
               placeholderText: 'Peculiarity',
             ),
             const SizedBox(height: 20,),
@@ -70,7 +68,6 @@ class EntryVisaFormPageTwo extends StatelessWidget {
                 return TextInput(
                   labelText: 'In the country of domicile*',
                   controller: _visaController.domicileCountryAddressController,
-                  // helpText: 'Enter a valid date',
                   placeholderText: 'Address',
                   helpText: _visaController.domicileCountryAddressHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInSecondPage.value
@@ -83,7 +80,6 @@ class EntryVisaFormPageTwo extends StatelessWidget {
                 return TextInput(
                   labelText: 'During stay in Sri Lanka*',
                   controller: _visaController.sriLankanAddressController,
-                  // helpText: 'Enter a valid date',
                   placeholderText: 'Address',
                   helpText: _visaController.sriLankanAddressHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInSecondPage.value
@@ -103,7 +99,6 @@ class EntryVisaFormPageTwo extends StatelessWidget {
                 return TextInput(
                   labelText: 'Telephone*',
                   controller: _visaController.telephoneNumberController,
-                  // helpText: 'Enter a valid date',
                   placeholderText: '+94112175268',
                   helpText: _visaController.telephoneNumberHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInSecondPage.value
@@ -116,7 +111,6 @@ class EntryVisaFormPageTwo extends StatelessWidget {
                 return TextInput(
                   labelText: 'Mobile*',
                   controller: _visaController.mobileNumberController,
-                  // helpText: 'Enter a valid date',
                   placeholderText: '+94714872852',
                   helpText: _visaController.mobileNumberHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInSecondPage.value
@@ -129,7 +123,6 @@ class EntryVisaFormPageTwo extends StatelessWidget {
                 return TextInput(
                   labelText: 'Email*',
                   controller: _visaController.emailController,
-                  // helpText: 'Enter a valid date',
                   placeholderText: 'Email',
                   helpText: _visaController.emailHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInSecondPage.value
@@ -141,20 +134,17 @@ class EntryVisaFormPageTwo extends StatelessWidget {
             TextInput(
               labelText: 'Name and address of workplace*',
               controller: _visaController.nameOfWorkPlaceController,
-              // helpText: 'Enter a valid date',
               placeholderText: 'Name',
             ),
             const SizedBox(height: 10,),
             TextInput(
               controller: _visaController.addressOfWorkPlaceController,
-              // helpText: 'Enter a valid date',
               placeholderText: 'Address',
             ),
             const SizedBox(height: 20,),
             TextInput(
               labelText: 'Workplace email*',
               controller: _visaController.workPlaceEmailController,
-              // helpText: 'Enter a valid date',
               placeholderText: 'Email',
             ),
 
@@ -208,26 +198,3 @@ class EntryVisaFormPageTwo extends StatelessWidget {
     );
   }
 }
-
-List<String> countries = [
-  'India',
-  'Russia',
-  'United Kingdom',
-  'Germany',
-  'France',
-  'China',
-  'Australia',
-  'United States',
-  'Canada',
-  'Japan',
-  'Switzerland',
-  'Spain',
-  'Maldives',
-  'Netherlands',
-  'Israel',
-  'Italy',
-  'Poland',
-  'Bangladesh',
-  'Czech Republic',
-  'Malaysia'
-];

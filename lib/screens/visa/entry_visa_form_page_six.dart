@@ -1,4 +1,5 @@
 import 'package:CeylonScape/controllers/visa_controller.dart';
+import 'package:CeylonScape/screens/main_page.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/theme/fonts.dart';
 import 'package:CeylonScape/widgets/button.dart';
@@ -50,36 +51,57 @@ class EntryVisaFormPageSix extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
 
-            TextInput(
-              labelText: 'Name*',
-              controller: _visaController.emergencyContactNameController,
-              placeholderText: 'Name',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Name*',
+                  controller: _visaController.emergencyContactNameController,
+                  placeholderText: 'Name',
+                  helpText: _visaController.emergencyContactNameHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInSixthPage.value
+                      ? _visaController.emergencyContactNameHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Address*',
-              controller: _visaController.emergencyContactAddressController,
-              placeholderText: 'Address',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Address*',
+                  controller: _visaController.emergencyContactAddressController,
+                  placeholderText: 'Address',
+                  helpText: _visaController.emergencyContactAddressHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInSixthPage.value
+                      ? _visaController.emergencyContactAddressHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Contact number*',
-              controller: _visaController.emergencyContactContactNumberController,
-              // helpText: 'Enter a valid passport number',
-              placeholderText: 'Contact number',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Contact number*',
+                  controller: _visaController.emergencyContactContactNumberController,
+                  placeholderText: 'Contact number',
+                  helpText: _visaController.emergencyContactContactNumberHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInSixthPage.value
+                      ? _visaController.emergencyContactContactNumberHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Relationship*',
-              controller: _visaController.emergencyContactRelationshipController,
-              // helpText: 'Enter a valid passport number',
-              placeholderText: 'Relationship',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Relationship*',
+                  controller: _visaController.emergencyContactRelationshipController,
+                  placeholderText: 'Relationship',
+                  helpText: _visaController.emergencyContactRelationshipHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInSixthPage.value
+                      ? _visaController.emergencyContactRelationshipHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
             TextInput(
               labelText: 'How much money in USD will the application have with him/her',
               controller: _visaController.emergencyContactBelongingMoneyAmountController,
-              // helpText: 'Enter a valid passport number',
               placeholderText: 'Amount',
               isNumber: true,
             ),
@@ -87,14 +109,12 @@ class EntryVisaFormPageSix extends StatelessWidget {
             TextInput(
               labelText: 'If credit card available- name of the card',
               controller: _visaController.emergencyContactNameOfCreditCardController,
-              // helpText: 'Enter a valid passport number',
               placeholderText: 'Card name',
             ),
             const SizedBox(height: 20,),
             TextInput(
               labelText: 'Spendable amount',
               controller: _visaController.emergencyContactSpendableAmountController,
-              // helpText: 'Enter a valid passport number',
               placeholderText: 'Amount',
               isNumber: true,
             ),
@@ -102,7 +122,6 @@ class EntryVisaFormPageSix extends StatelessWidget {
             TextInput(
               labelText: 'Any other reason to urge in support of application',
               controller: _visaController.urgeSupportReasonController,
-              // helpText: 'Enter a valid passport number',
               placeholderText: 'Specify the reason',
             ),
             const SizedBox(height: 20,),
@@ -130,11 +149,18 @@ class EntryVisaFormPageSix extends StatelessWidget {
                     child: Button(
                         type: ButtonType.primaryColor,
                         buttonText: "Next",
-                        onPressed: () {
-                          pageController.nextPage(
-                            duration: const Duration(milliseconds: 20),
-                            curve: Curves.easeInOut,
-                          );
+                        onPressed: () async {
+                          // if(_visaController.validateSixthPage()) {
+                            await _showConfirmDialog(context, _visaController);
+                          // } else {
+                          //   Get.snackbar(
+                          //       'Error',
+                          //       'Please check all inputs',
+                          //       colorText: CeylonScapeColor.black,
+                          //       backgroundColor: CeylonScapeColor.black0,
+                          //       icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
+                          //   );
+                          // }
                         }),
                   )
                 ],
@@ -148,25 +174,49 @@ class EntryVisaFormPageSix extends StatelessWidget {
   }
 }
 
-List<String> countries = [
-  'India',
-  'Russia',
-  'United Kingdom',
-  'Germany',
-  'France',
-  'China',
-  'Australia',
-  'United States',
-  'Canada',
-  'Japan',
-  'Switzerland',
-  'Spain',
-  'Maldives',
-  'Netherlands',
-  'Israel',
-  'Italy',
-  'Poland',
-  'Bangladesh',
-  'Czech Republic',
-  'Malaysia'
-];
+Future<bool?> _showConfirmDialog(BuildContext context, VisaController visaController) {
+  return showDialog<bool>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: const Text('Are you sure?'),
+        content: const Text('Are you sure you want to submit this form?'),
+        actions: <Widget>[
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Cancel'),
+            onPressed: () {
+              Navigator.pop(context, false);
+            },
+          ),
+          TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.labelLarge,
+            ),
+            child: const Text('Submit'),
+            onPressed: () {
+              visaController.apply().then((value) {
+                if (value) {
+                  Get.offAll(() => const MainPage());
+                  Get.snackbar(
+                    icon: const Icon(
+                      Icons.check_circle,
+                      size: 26,
+                      color: CeylonScapeColor.success40,
+                    ),
+                    shouldIconPulse: true,
+                    "Success",
+                    "Successfully applied for VISA",
+                    colorText: CeylonScapeColor.black,
+                  );
+                }
+              });
+            },
+          ),
+        ],
+      );
+    },
+  );
+}

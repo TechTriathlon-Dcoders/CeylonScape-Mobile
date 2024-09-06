@@ -51,13 +51,12 @@ class EntryVisaFormPageOne extends StatelessWidget {
                 return TextInput(
                   labelText: 'Full name*',
                   controller: _visaController.fullNameController,
-                  // helpText: 'Enter a valid passport number',
                   placeholderText: 'Full name',
                   helpText: _visaController.fullNameHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInFirstPage.value
                       ? _visaController.fullNameHintMessage.value : null,
                   initialValue: _authService.getFullName(),
-                  isProhibitedEdit: true,
+                  // isProhibitedEdit: true,
                 );
               }
             ),
@@ -93,7 +92,6 @@ class EntryVisaFormPageOne extends StatelessWidget {
                 return DateInput(
                   labelText: 'Date of birth*',
                   controller: _visaController.dateOfBirthController,
-                  // helpText: 'Enter a valid date',
                   placeholderText: 'YYYY:MM:DD',
                   lastDate: DateTime.now(),
                   helpText: _visaController.dateOfBirthHintMessage.value.isNotEmpty
@@ -107,7 +105,6 @@ class EntryVisaFormPageOne extends StatelessWidget {
                 return TextInput(
                   labelText: 'Birth place*',
                   controller: _visaController.birthPlaceController,
-                  // helpText: 'Enter a valid place',
                   placeholderText: 'Place',
                   helpText: _visaController.birthPlaceHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInFirstPage.value

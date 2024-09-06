@@ -52,11 +52,17 @@ class EntryVisaFormPageFive extends StatelessWidget {
               height: 240,
             ),
             const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Period for visit visa*',
-              controller: _visaController.periodForVisitVisaController,
-              placeholderText: 'Period',
-              isNumber: true,
+            Obx(() {
+                return TextInput(
+                  labelText: 'Period for visit visa*',
+                  controller: _visaController.periodForVisitVisaController,
+                  placeholderText: 'Period',
+                  isNumber: true,
+                  helpText: _visaController.periodForVisitVisaHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInFifthPage.value
+                      ? _visaController.periodForVisitVisaHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
 
@@ -66,59 +72,83 @@ class EntryVisaFormPageFive extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
 
-            TextInput(
-              labelText: 'Last place of residence*',
-              controller: _visaController.lastPlaceOfResidenceController,
-              // helpText: 'Enter a valid passport number',
-              placeholderText: 'Place',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Last place of residence*',
+                  controller: _visaController.lastPlaceOfResidenceController,
+                  placeholderText: 'Place',
+                  helpText: _visaController.lastPlaceOfResidenceHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInFifthPage.value
+                      ? _visaController.lastPlaceOfResidenceHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            DateInput(
-              labelText: 'Date of leaving*',
-              controller: _visaController.dateOfLeavingController,
-              // helpText: 'Enter a valid date',
-              placeholderText: 'YYYY:MM:DD',
+            Obx(() {
+                return DateInput(
+                  labelText: 'Date of leaving*',
+                  controller: _visaController.dateOfLeavingController,
+                  placeholderText: 'YYYY:MM:DD',
+                  helpText: _visaController.dateOfLeavingHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInFifthPage.value
+                      ? _visaController.dateOfLeavingHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            DropdownInput(
-                labelText: 'Last obtained visa*',
-                controller: _visaController.lastObtainedVisaTypeController,
-                options: const [
-                  'Entry Visa',
-                  'Business Visa',
-                  'Medical Visa',
-                  'Transit Visa',
-                  'Residence Visa',
-                  'Diplomatic & Official Visa'
-                ]
+            Obx(() {
+                return DropdownInput(
+                    labelText: 'Last obtained visa*',
+                    controller: _visaController.lastObtainedVisaTypeController,
+                    options: const [
+                      'Entry Visa',
+                      'Business Visa',
+                      'Medical Visa',
+                      'Transit Visa',
+                      'Residence Visa',
+                      'Diplomatic & Official Visa'
+                    ],
+                    helpText: _visaController.lastObtainedVisaTypeHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInFifthPage.value
+                      ? _visaController.lastObtainedVisaTypeHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            DateInput(
-              labelText: 'Date of issue*',
-              controller: _visaController.lastObtainedVisaDateOfIssueController,
-              // helpText: 'Enter a valid date',
-              placeholderText: 'YYYY:MM:DD',
+            Obx(() {
+                return DateInput(
+                  labelText: 'Date of issue*',
+                  controller: _visaController.lastObtainedVisaDateOfIssueController,
+                  placeholderText: 'YYYY:MM:DD',
+                  helpText: _visaController.lastObtainedVisaDateOfIssueHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInFifthPage.value
+                      ? _visaController.lastObtainedVisaDateOfIssueHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Period of validity*',
-              controller: _visaController.lastObtainedVisaPeriodOfValidityController,
-              // helpText: 'Enter a valid place',
-              placeholderText: 'Period',
-              isNumber: true,
+            Obx(() {
+                return TextInput(
+                  labelText: 'Period of validity*',
+                  controller: _visaController.lastObtainedVisaPeriodOfValidityController,
+                  placeholderText: 'Period',
+                  isNumber: true,
+                  helpText: _visaController.lastObtainedVisaPeriodOfValidityHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInFifthPage.value
+                      ? _visaController.lastObtainedVisaPeriodOfValidityHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
             TextInput(
               labelText: 'If resident visa - resident visa number',
               controller: _visaController.lastObtainedVisaResidenceVisaNumberController,
-              // helpText: 'Enter a valid place',
               placeholderText: 'Visa number',
             ),
             const SizedBox(height: 20,),
             TextInput(
               labelText: 'Has refused a visa?',
               controller: _visaController.refusedVisaReasonController,
-              // helpText: 'Enter a valid place',
               placeholderText: 'Specify the reason',
             ),
 
@@ -145,10 +175,20 @@ class EntryVisaFormPageFive extends StatelessWidget {
                         type: ButtonType.primaryColor,
                         buttonText: "Next",
                         onPressed: () {
+                          // if(_visaController.validateFifthPage()) {
                           pageController.nextPage(
                             duration: const Duration(milliseconds: 20),
                             curve: Curves.easeInOut,
                           );
+                          // } else {
+                          //   Get.snackbar(
+                          //       'Error',
+                          //       'Please check all inputs',
+                          //       colorText: CeylonScapeColor.black,
+                          //       backgroundColor: CeylonScapeColor.black0,
+                          //       icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
+                          //   );
+                          // }
                         }),
                   )
                 ],
@@ -161,26 +201,3 @@ class EntryVisaFormPageFive extends StatelessWidget {
     );
   }
 }
-
-List<String> countries = [
-  'India',
-  'Russia',
-  'United Kingdom',
-  'Germany',
-  'France',
-  'China',
-  'Australia',
-  'United States',
-  'Canada',
-  'Japan',
-  'Switzerland',
-  'Spain',
-  'Maldives',
-  'Netherlands',
-  'Israel',
-  'Italy',
-  'Poland',
-  'Bangladesh',
-  'Czech Republic',
-  'Malaysia'
-];
