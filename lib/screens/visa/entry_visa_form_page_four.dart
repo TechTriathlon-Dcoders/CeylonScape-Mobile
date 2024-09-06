@@ -44,47 +44,123 @@ class EntryVisaFormPageFour extends StatelessWidget {
             ),
             const SizedBox(height: 64,),
 
-            Text(
-              'Spouse details',
-              style: CeylonScapeFont.featureAccent,
-            ),
-            const SizedBox(height: 20,),
+            if (_visaController.isCivilStatusMarried())
+              Column(
+                children: [
+                  Text(
+                    'Spouse details',
+                    style: CeylonScapeFont.featureAccent,
+                  ),
+                  const SizedBox(height: 20,),
 
-            TextInput(
-              labelText: 'Full Name*',
-              controller: _visaController.spouseFullNameController,
-              // helpText: 'Enter a valid passport number',
-              placeholderText: 'Full name',
-            ),
-            const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Nationality*',
-              controller: _visaController.spouseNationalityController,
-              // helpText: 'Enter a valid place',
-              placeholderText: 'Nationality',
-            ),
-            const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Postal address*',
-              controller: _visaController.spousePostalAddressController,
-              // helpText: 'Enter a valid place',
-              placeholderText: 'Address',
-            ),
-            const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Passport number*',
-              controller: _visaController.spousePassportNumberController,
-              // helpText: 'Enter a valid place',
-              placeholderText: 'Passport number',
-            ),
-            const SizedBox(height: 20,),
-            DateInput(
-              labelText: 'Date of expiry*',
-              controller: _visaController.spouseDateOfPassportExpiryController,
-              // helpText: 'Enter a valid date',
-              placeholderText: 'YYYY:MM:DD',
-            ),
-            const SizedBox(height: 20,),
+                  Obx(() {
+                      return TextInput(
+                        labelText: 'Full Name*',
+                        controller: _visaController.spouseFullNameController,
+                        // helpText: 'Enter a valid passport number',
+                        placeholderText: 'Full name',
+                        helpText: _visaController.spouseFullNameHintMessage.value.isNotEmpty
+                            && _visaController.hasAttemptNextInFourthPage.value
+                            ? _visaController.spouseFullNameHintMessage.value : null,
+                      );
+                    }
+                  ),
+                  const SizedBox(height: 20,),
+                  Obx(() {
+                      return TextInput(
+                        labelText: 'Nationality*',
+                        controller: _visaController.spouseNationalityController,
+                        // helpText: 'Enter a valid place',
+                        placeholderText: 'Nationality',
+                        helpText: _visaController.spouseNationalityHintMessage.value.isNotEmpty
+                            && _visaController.hasAttemptNextInFourthPage.value
+                            ? _visaController.spouseNationalityHintMessage.value : null,
+                      );
+                    }
+                  ),
+                  const SizedBox(height: 20,),
+                  Obx(() {
+                      return TextInput(
+                        labelText: 'Postal address*',
+                        controller: _visaController.spousePostalAddressController,
+                        // helpText: 'Enter a valid place',
+                        placeholderText: 'Address',
+                        helpText: _visaController.spousePostalAddressHintMessage.value.isNotEmpty
+                            && _visaController.hasAttemptNextInFourthPage.value
+                            ? _visaController.spousePostalAddressHintMessage.value : null,
+                      );
+                    }
+                  ),
+                  const SizedBox(height: 20,),
+                  Obx(() {
+                      return TextInput(
+                        labelText: 'Passport number*',
+                        controller: _visaController.spousePassportNumberController,
+                        // helpText: 'Enter a valid place',
+                        placeholderText: 'Passport number',
+                        helpText: _visaController.spousePassportNumberHintMessage.value.isNotEmpty
+                            && _visaController.hasAttemptNextInFourthPage.value
+                            ? _visaController.spousePassportNumberHintMessage.value : null,
+                      );
+                    }
+                  ),
+                  const SizedBox(height: 20,),
+                  Obx(() {
+                      return DateInput(
+                        labelText: 'Date of expiry*',
+                        controller: _visaController.spouseDateOfPassportExpiryController,
+                        // helpText: 'Enter a valid date',
+                        placeholderText: 'YYYY:MM:DD',
+                        helpText: _visaController.spouseDateOfPassportExpiryHintMessage.value.isNotEmpty
+                            && _visaController.hasAttemptNextInFourthPage.value
+                            ? _visaController.spouseDateOfPassportExpiryHintMessage.value : null,
+                      );
+                    }
+                  ),
+                  const SizedBox(height: 20,),
+                ],
+              ),
+            // Text(
+            //   'Spouse details',
+            //   style: CeylonScapeFont.featureAccent,
+            // ),
+            // const SizedBox(height: 20,),
+            //
+            // TextInput(
+            //   labelText: 'Full Name*',
+            //   controller: _visaController.spouseFullNameController,
+            //   // helpText: 'Enter a valid passport number',
+            //   placeholderText: 'Full name',
+            // ),
+            // const SizedBox(height: 20,),
+            // TextInput(
+            //   labelText: 'Nationality*',
+            //   controller: _visaController.spouseNationalityController,
+            //   // helpText: 'Enter a valid place',
+            //   placeholderText: 'Nationality',
+            // ),
+            // const SizedBox(height: 20,),
+            // TextInput(
+            //   labelText: 'Postal address*',
+            //   controller: _visaController.spousePostalAddressController,
+            //   // helpText: 'Enter a valid place',
+            //   placeholderText: 'Address',
+            // ),
+            // const SizedBox(height: 20,),
+            // TextInput(
+            //   labelText: 'Passport number*',
+            //   controller: _visaController.spousePassportNumberController,
+            //   // helpText: 'Enter a valid place',
+            //   placeholderText: 'Passport number',
+            // ),
+            // const SizedBox(height: 20,),
+            // DateInput(
+            //   labelText: 'Date of expiry*',
+            //   controller: _visaController.spouseDateOfPassportExpiryController,
+            //   // helpText: 'Enter a valid date',
+            //   placeholderText: 'YYYY:MM:DD',
+            // ),
+            // const SizedBox(height: 20,),
 
             Text(
               'Naturalised',
@@ -92,27 +168,45 @@ class EntryVisaFormPageFour extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
 
-            DateInput(
-              labelText: 'Date*',
-              controller: _visaController.dateOfNaturalizedController,
-              // helpText: 'Enter a valid date',
-              placeholderText: 'YYYY:MM:DD',
+            Obx(() {
+                return DateInput(
+                  labelText: 'Date',
+                  controller: _visaController.dateOfNaturalizedController,
+                  // helpText: 'Enter a valid date',
+                  placeholderText: 'YYYY:MM:DD',
+                  helpText: _visaController.dateOfNaturalizedHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInFourthPage.value
+                      ? _visaController.dateOfNaturalizedHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Place of naturalised*',
-              controller: _visaController.placeOfNaturalizedController,
-              // helpText: 'Enter a valid place',
-              placeholderText: 'Place',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Place of naturalised',
+                  controller: _visaController.placeOfNaturalizedController,
+                  // helpText: 'Enter a valid place',
+                  placeholderText: 'Place',
+                  helpText: _visaController.placeOfNaturalizedHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInFourthPage.value
+                      ? _visaController.placeOfNaturalizedHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Former nationality*',
-              controller: _visaController.formerNationalityController,
-              // helpText: 'Enter a valid place',
-              placeholderText: 'Nationality',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Former nationality',
+                  controller: _visaController.formerNationalityController,
+                  // helpText: 'Enter a valid place',
+                  placeholderText: 'Nationality',
+                  helpText: _visaController.formerNationalityHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInFourthPage.value
+                      ? _visaController.formerNationalityHintMessage.value : null,
+                );
+              }
             ),
-            const SizedBox(height: 20,),
+            // const SizedBox(height: 20,),
 
             const SizedBox(height: 32,),
             Container(
@@ -137,10 +231,20 @@ class EntryVisaFormPageFour extends StatelessWidget {
                         type: ButtonType.primaryColor,
                         buttonText: "Next",
                         onPressed: () {
+                          // if(_visaController.validateFourthPage()) {
                           pageController.nextPage(
                             duration: const Duration(milliseconds: 20),
                             curve: Curves.easeInOut,
                           );
+                          // } else {
+                          //   Get.snackbar(
+                          //       'Error',
+                          //       'Please check all inputs',
+                          //       colorText: CeylonScapeColor.black,
+                          //       backgroundColor: CeylonScapeColor.black0,
+                          //       icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
+                          //   );
+                          // }
                         }),
                   )
                 ],

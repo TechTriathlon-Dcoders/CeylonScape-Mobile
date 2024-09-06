@@ -2,6 +2,7 @@ import 'package:CeylonScape/dto/visa/visa_request.dart';
 import 'package:CeylonScape/services/api_service.dart';
 import 'package:CeylonScape/services/auth_service.dart';
 import 'package:CeylonScape/theme/colors.dart';
+import 'package:CeylonScape/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -59,7 +60,10 @@ class VisaController extends GetxController {
   final TextEditingController emergencyContactSpendableAmountController = TextEditingController();
   final TextEditingController urgeSupportReasonController = TextEditingController();
   final RxBool hasAttemptedApplyVisa = false.obs;
-  final RxBool hasAttempNextInFirstPage = false.obs;
+  final RxBool hasAttemptNextInFirstPage = false.obs;
+  final RxBool hasAttemptNextInSecondPage = false.obs;
+  final RxBool hasAttemptNextInThirdPage = false.obs;
+  final RxBool hasAttemptNextInFourthPage = false.obs;
 
   RxString fullNameHintMessage = ''.obs;
   RxString nationalityHintMessage = ''.obs;
@@ -69,8 +73,41 @@ class VisaController extends GetxController {
   RxString birthCountryHintMessage = ''.obs;
   RxString civilStatusHintMessage = ''.obs;
 
+  RxString heightHintMessage = ''.obs;
+  RxString peculiarityHintMessage = ''.obs;
+  RxString domicileCountryAddressHintMessage = ''.obs;
+  RxString sriLankanAddressHintMessage = ''.obs;
+  RxString telephoneNumberHintMessage = ''.obs;
+  RxString mobileNumberHintMessage = ''.obs;
+  RxString emailHintMessage = ''.obs;
+  RxString nameOfWorkPlaceHintMessage = ''.obs;
+  RxString addressOfWorkPlaceHintMessage = ''.obs;
+  RxString workPlaceEmailHintMessage = ''.obs;
+
+  RxString passportNumberHintMessage = ''.obs;
+  RxString placeOfPassportIssueHintMessage = ''.obs;
+  RxString dateOfPassportIssueHintMessage = ''.obs;
+  RxString dateOfPassportExpiryHintMessage = ''.obs;
+  RxString previousPassportNumberHintMessage = ''.obs;
+  RxString placeOfPreviousPassportIssueHintMessage = ''.obs;
+  RxString dateOfPreviousPassportIssueHintMessage = ''.obs;
+  RxString dateOfPreviousPassportExpiryHintMessage = ''.obs;
+
+  RxString spouseFullNameHintMessage = ''.obs;
+  RxString spouseNationalityHintMessage = ''.obs;
+  RxString spousePostalAddressHintMessage = ''.obs;
+  RxString spousePassportNumberHintMessage = ''.obs;
+  RxString spouseDateOfPassportExpiryHintMessage = ''.obs;
+  RxString dateOfNaturalizedHintMessage = ''.obs;
+  RxString placeOfNaturalizedHintMessage = ''.obs;
+  RxString formerNationalityHintMessage = ''.obs;
+
   bool validateSignInForm(){
     return true;
+  }
+
+  bool isCivilStatusMarried() {
+    return civilStatusController.text == 'Married';
   }
 
   bool validateFirstPage() {
@@ -82,7 +119,7 @@ class VisaController extends GetxController {
     birthCountryHintMessage.value = birthCountryController.text.isEmpty ? 'Country of birth is required' : '';
     civilStatusHintMessage.value = civilStatusController.text.isEmpty ? 'Civil status is required' : '';
 
-    hasAttempNextInFirstPage.value = true;
+    hasAttemptNextInFirstPage.value = true;
 
     return fullNameHintMessage.value.isEmpty
     && nationalityHintMessage.value.isEmpty
@@ -91,6 +128,91 @@ class VisaController extends GetxController {
     && birthPlaceHintMessage.value.isEmpty
     && birthCountryHintMessage.value.isEmpty
     && civilStatusHintMessage.value.isEmpty;
+  }
+
+  bool validateSecondPage() {
+    domicileCountryAddressHintMessage.value = domicileCountryAddressController.text.isEmpty ? 'Address is required' : '';
+    sriLankanAddressHintMessage.value = sriLankanAddressController.text.isEmpty ? 'Address is required' : '';
+    telephoneNumberHintMessage.value = validateMobileNumber(telephoneNumberController.text) ?? '';
+    mobileNumberHintMessage.value = validateMobileNumber(mobileNumberController.text) ?? '';
+    emailHintMessage.value = validateEmail(emailController.text) ?? '';
+
+    hasAttemptNextInSecondPage.value = true;
+
+    return domicileCountryAddressHintMessage.value.isEmpty
+        && sriLankanAddressHintMessage.value.isEmpty
+        && telephoneNumberHintMessage.value.isEmpty
+        && mobileNumberHintMessage.value.isEmpty
+        && emailHintMessage.value.isEmpty;
+  }
+
+  bool validatePreviousPassportInfoFilled() {
+    return validateByGroup([
+      previousPassportNumberController.text,
+      placeOfPreviousPassportIssueController.text,
+      dateOfPreviousPassportIssueController.text,
+      dateOfPreviousPassportExpiryController.text,
+    ]);
+  }
+
+  bool validateNaturalizedInfoFilled() {
+    return validateByGroup([
+      dateOfNaturalizedController.text,
+      placeOfNaturalizedController.text,
+      formerNationalityController.text
+    ]);
+  }
+
+  bool validateByGroup(List<String> list) {
+    bool allEmpty = list.every((field) => field.isEmpty);
+    bool allFilled = list.every((field) => field.isNotEmpty);
+    return allEmpty || allFilled;
+  }
+
+  bool validateThirdPage() {
+    passportNumberHintMessage.value = passportNumberController.text.isEmpty ? 'Passport number is required' : '';
+    placeOfPassportIssueHintMessage.value = placeOfPassportIssueController.text.isEmpty ? 'Place is required' : '';
+    dateOfPassportIssueHintMessage.value = dateOfPassportIssueController.text.isEmpty ? 'Date is required' : '';
+    dateOfPassportExpiryHintMessage.value = validateTwoDates(dateOfPassportIssueController.text, dateOfPassportExpiryController.text, 'Expiry date') ?? '';
+    previousPassportNumberHintMessage.value = validatePreviousPassportInfoFilled() ? 'Fill all if you have a previous passport' : '';
+    placeOfPreviousPassportIssueHintMessage.value = validatePreviousPassportInfoFilled() ? 'Fill all if you have a previous passport' : '';
+    dateOfPreviousPassportIssueHintMessage.value = validatePreviousPassportInfoFilled() ? 'Fill all if you have a previous passport' : '';
+    dateOfPreviousPassportExpiryHintMessage.value = validatePreviousPassportInfoFilled() ? 'Fill all if you have a previous passport'
+        : validateTwoDates(dateOfPreviousPassportIssueController.text, dateOfPreviousPassportExpiryController.text, 'Expiry date') ?? '';
+
+    hasAttemptNextInThirdPage.value = true;
+
+    return passportNumberHintMessage.value.isEmpty
+        && placeOfPassportIssueHintMessage.value.isEmpty
+        && dateOfPassportIssueHintMessage.value.isEmpty
+        && dateOfPassportExpiryHintMessage.value.isEmpty
+        && previousPassportNumberHintMessage.value.isEmpty
+        && placeOfPreviousPassportIssueHintMessage.value.isEmpty
+        && dateOfPreviousPassportIssueHintMessage.value.isEmpty
+        && dateOfPreviousPassportExpiryHintMessage.value.isEmpty;
+  }
+
+  bool validateFourthPage() {
+    spouseFullNameHintMessage.value = spouseFullNameController.text.isEmpty && isCivilStatusMarried() ? "Full name is required" : '';
+    spouseNationalityHintMessage.value = spouseNationalityController.text.isEmpty && isCivilStatusMarried() ? "Nationality is required" : '';
+    spousePostalAddressHintMessage.value = spousePostalAddressController.text.isEmpty && isCivilStatusMarried() ? "Postal address is required" : '';
+    spousePassportNumberHintMessage.value = spousePassportNumberController.text.isEmpty && isCivilStatusMarried() ? "Passport number is required" : '';
+    spouseDateOfPassportExpiryHintMessage.value = spouseDateOfPassportExpiryController.text.isEmpty && isCivilStatusMarried() ? "Date of expiry is required" : '';
+    dateOfNaturalizedHintMessage.value = validateNaturalizedInfoFilled() ? 'Fill all if you have been naturalized' : '';
+    placeOfNaturalizedHintMessage.value = validateNaturalizedInfoFilled() ? 'Fill all if you have been naturalized' : '';
+    formerNationalityHintMessage.value = validateNaturalizedInfoFilled() ? 'Fill all if you have been naturalized'
+        : nationalityController.text == formerNationalityController.text
+        ? 'Cannot be your current nationality' : '';
+
+    hasAttemptNextInThirdPage.value = true;
+
+    return spouseFullNameHintMessage.value.isEmpty
+        && spouseNationalityHintMessage.value.isEmpty
+        && spousePostalAddressHintMessage.value.isEmpty
+        && spousePassportNumberHintMessage.value.isEmpty
+        && spouseDateOfPassportExpiryHintMessage.value.isEmpty
+        && dateOfNaturalizedHintMessage.value.isEmpty
+        && formerNationalityHintMessage.value.isEmpty;
   }
 
   Future<bool> apply() async {

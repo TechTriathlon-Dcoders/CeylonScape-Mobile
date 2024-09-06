@@ -3,6 +3,7 @@ import 'package:CeylonScape/dto/login/login_response.dart';
 import 'package:CeylonScape/dto/login/signup_request.dart';
 import 'package:CeylonScape/dto/login/signup_response.dart';
 import 'package:CeylonScape/theme/colors.dart';
+import 'package:CeylonScape/util/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../services/api_service.dart';
@@ -28,26 +29,26 @@ class SignUpController extends GetxController {
   RxString firstNameHintMessage = ''.obs;
   RxString lastNameHintMessage = ''.obs;
 
-  // Validate Email
-  String? validateEmail(String email) {
-    String emailPattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
-    if (email.isEmpty) {
-      return 'Email is required';
-    } else if (!RegExp(emailPattern).hasMatch(email)) {
-      return 'Enter a valid email';
-    }
-    return null;
-  }
-
-  // Validate Mobile Number
-  String? validateMobileNumber(String mobileNumber) {
-    if (mobileNumber.isEmpty) {
-      return 'Mobile number is required';
-    } else if (!mobileNumber.startsWith('+')) {
-      return 'Mobile number should start with a + sign';
-    }
-    return null;
-  }
+  // // Validate Email
+  // String? validateEmail(String email) {
+  //   String emailPattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+  //   if (email.isEmpty) {
+  //     return 'Email is required';
+  //   } else if (!RegExp(emailPattern).hasMatch(email)) {
+  //     return 'Enter a valid email';
+  //   }
+  //   return null;
+  // }
+  //
+  // // Validate Mobile Number
+  // String? validateMobileNumber(String mobileNumber) {
+  //   if (mobileNumber.isEmpty) {
+  //     return 'Mobile number is required';
+  //   } else if (!mobileNumber.startsWith('+')) {
+  //     return 'Mobile number should start with a + sign';
+  //   }
+  //   return null;
+  // }
 
   // Validate Password
   String? validatePassword(String password) {

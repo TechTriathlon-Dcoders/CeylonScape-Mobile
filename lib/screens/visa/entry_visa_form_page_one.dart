@@ -54,7 +54,7 @@ class EntryVisaFormPageOne extends StatelessWidget {
                   // helpText: 'Enter a valid passport number',
                   placeholderText: 'Full name',
                   helpText: _visaController.fullNameHintMessage.value.isNotEmpty
-                      && _visaController.hasAttempNextInFirstPage.value
+                      && _visaController.hasAttemptNextInFirstPage.value
                       ? _visaController.fullNameHintMessage.value : null,
                   initialValue: _authService.getFullName(),
                   isProhibitedEdit: true,
@@ -67,7 +67,7 @@ class EntryVisaFormPageOne extends StatelessWidget {
                   labelText: 'Nationality*',
                   controller: _visaController.nationalityController,
                   helpText: _visaController.nationalityHintMessage.value.isNotEmpty
-                      && _visaController.hasAttempNextInFirstPage.value
+                      && _visaController.hasAttemptNextInFirstPage.value
                       ? _visaController.nationalityHintMessage.value : null,
                   placeholderText: 'Nationality',
                 );
@@ -83,7 +83,7 @@ class EntryVisaFormPageOne extends StatelessWidget {
                       'Female'
                     ],
                     helpText: _visaController.genderHintMessage.value.isNotEmpty
-                      && _visaController.hasAttempNextInFirstPage.value
+                      && _visaController.hasAttemptNextInFirstPage.value
                       ? _visaController.genderHintMessage.value : null,
                 );
               }
@@ -97,7 +97,7 @@ class EntryVisaFormPageOne extends StatelessWidget {
                   placeholderText: 'YYYY:MM:DD',
                   lastDate: DateTime.now(),
                   helpText: _visaController.dateOfBirthHintMessage.value.isNotEmpty
-                      && _visaController.hasAttempNextInFirstPage.value
+                      && _visaController.hasAttemptNextInFirstPage.value
                       ? _visaController.dateOfBirthHintMessage.value : null,
                 );
               }
@@ -110,7 +110,7 @@ class EntryVisaFormPageOne extends StatelessWidget {
                   // helpText: 'Enter a valid place',
                   placeholderText: 'Place',
                   helpText: _visaController.birthPlaceHintMessage.value.isNotEmpty
-                      && _visaController.hasAttempNextInFirstPage.value
+                      && _visaController.hasAttemptNextInFirstPage.value
                       ? _visaController.birthPlaceHintMessage.value : null,
                 );
               }
@@ -122,7 +122,7 @@ class EntryVisaFormPageOne extends StatelessWidget {
                     controller: _visaController.birthCountryController,
                     options: listOfCountries,
                     helpText: _visaController.birthCountryHintMessage.value.isNotEmpty
-                      && _visaController.hasAttempNextInFirstPage.value
+                      && _visaController.hasAttemptNextInFirstPage.value
                       ? _visaController.birthCountryHintMessage.value : null,
                 );
               }
@@ -137,7 +137,7 @@ class EntryVisaFormPageOne extends StatelessWidget {
                       'Married'
                     ],
                     helpText: _visaController.civilStatusHintMessage.value.isNotEmpty
-                      && _visaController.hasAttempNextInFirstPage.value
+                      && _visaController.hasAttemptNextInFirstPage.value
                       ? _visaController.civilStatusHintMessage.value : null,
                 );
               }

@@ -50,32 +50,56 @@ class EntryVisaFormPageThree extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
 
-            TextInput(
-              labelText: 'Number*',
-              controller: _visaController.passportNumberController,
-              // helpText: 'Enter a valid passport number',
-              placeholderText: 'Number',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Number*',
+                  controller: _visaController.passportNumberController,
+                  // helpText: 'Enter a valid passport number',
+                  placeholderText: 'Number',
+                  helpText: _visaController.passportNumberHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInThirdPage.value
+                      ? _visaController.passportNumberHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Place of issue*',
-              controller: _visaController.placeOfPassportIssueController,
-              // helpText: 'Enter a valid place',
-              placeholderText: 'Place',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Place of issue*',
+                  controller: _visaController.placeOfPassportIssueController,
+                  // helpText: 'Enter a valid place',
+                  placeholderText: 'Place',
+                  helpText: _visaController.placeOfPassportIssueHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInThirdPage.value
+                      ? _visaController.placeOfPassportIssueHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            DateInput(
-              labelText: 'Date of issue*',
-              controller: _visaController.dateOfPassportIssueController,
-              // helpText: 'Enter a valid date',
-              placeholderText: 'YYYY:MM:DD',
+            Obx(() {
+                return DateInput(
+                  labelText: 'Date of issue*',
+                  controller: _visaController.dateOfPassportIssueController,
+                  // helpText: 'Enter a valid date',
+                  placeholderText: 'YYYY:MM:DD',
+                  helpText: _visaController.dateOfPassportIssueHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInThirdPage.value
+                      ? _visaController.dateOfPassportIssueHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            DateInput(
-              labelText: 'Date of expiry*',
-              controller: _visaController.dateOfPassportExpiryController,
-              // helpText: 'Enter a valid date',
-              placeholderText: 'YYYY:MM:DD',
+            Obx(() {
+                return DateInput(
+                  labelText: 'Date of expiry*',
+                  controller: _visaController.dateOfPassportExpiryController,
+                  // helpText: 'Enter a valid date',
+                  placeholderText: 'YYYY:MM:DD',
+                  helpText: _visaController.dateOfPassportExpiryHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInThirdPage.value
+                      ? _visaController.dateOfPassportExpiryHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
 
@@ -85,32 +109,56 @@ class EntryVisaFormPageThree extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
 
-            TextInput(
-              labelText: 'Number*',
-              controller: _visaController.previousPassportNumberController,
-              // helpText: 'Enter a valid date',
-              placeholderText: 'Number',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Number*',
+                  controller: _visaController.previousPassportNumberController,
+                  // helpText: 'Enter a valid date',
+                  placeholderText: 'Number',
+                  helpText: _visaController.previousPassportNumberHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInThirdPage.value
+                      ? _visaController.previousPassportNumberHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Place of issue*',
-              controller: _visaController.placeOfPreviousPassportIssueController,
-              // helpText: 'Enter a valid place',
-              placeholderText: 'Place',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Place of issue*',
+                  controller: _visaController.placeOfPreviousPassportIssueController,
+                  // helpText: 'Enter a valid place',
+                  placeholderText: 'Place',
+                  helpText: _visaController.placeOfPreviousPassportIssueHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInThirdPage.value
+                      ? _visaController.placeOfPreviousPassportIssueHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            DateInput(
-              labelText: 'Date of issue*',
-              controller: _visaController.dateOfPreviousPassportIssueController,
-              // helpText: 'Enter a valid date',
-              placeholderText: 'YYYY:MM:DD',
+            Obx(() {
+                return DateInput(
+                  labelText: 'Date of issue*',
+                  controller: _visaController.dateOfPreviousPassportIssueController,
+                  // helpText: 'Enter a valid date',
+                  placeholderText: 'YYYY:MM:DD',
+                  helpText: _visaController.dateOfPreviousPassportIssueHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInThirdPage.value
+                      ? _visaController.dateOfPreviousPassportIssueHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            DateInput(
-              labelText: 'Date of expiry*',
-              controller: _visaController.dateOfPreviousPassportExpiryController,
-              // helpText: 'Enter a valid date',
-              placeholderText: 'YYYY:MM:DD',
+            Obx(() {
+                return DateInput(
+                  labelText: 'Date of expiry*',
+                  controller: _visaController.dateOfPreviousPassportExpiryController,
+                  // helpText: 'Enter a valid date',
+                  placeholderText: 'YYYY:MM:DD',
+                  helpText: _visaController.dateOfPassportExpiryHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInThirdPage.value
+                      ? _visaController.dateOfPassportExpiryHintMessage.value : null,
+                );
+              }
             ),
 
             const SizedBox(height: 32,),
@@ -136,10 +184,20 @@ class EntryVisaFormPageThree extends StatelessWidget {
                         type: ButtonType.primaryColor,
                         buttonText: "Next",
                         onPressed: () {
+                          // if(_visaController.validateThirdPage()) {
                           pageController.nextPage(
                             duration: const Duration(milliseconds: 20),
                             curve: Curves.easeInOut,
                           );
+                          // } else {
+                          //   Get.snackbar(
+                          //       'Error',
+                          //       'Please check all inputs',
+                          //       colorText: CeylonScapeColor.black,
+                          //       backgroundColor: CeylonScapeColor.black0,
+                          //       icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
+                          //   );
+                          // }
                         }),
                   )
                 ],

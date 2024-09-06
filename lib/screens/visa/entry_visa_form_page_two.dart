@@ -66,18 +66,30 @@ class EntryVisaFormPageTwo extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
 
-            TextInput(
-              labelText: 'In the country of domicile*',
-              controller: _visaController.domicileCountryAddressController,
-              // helpText: 'Enter a valid date',
-              placeholderText: 'Address',
+            Obx(() {
+                return TextInput(
+                  labelText: 'In the country of domicile*',
+                  controller: _visaController.domicileCountryAddressController,
+                  // helpText: 'Enter a valid date',
+                  placeholderText: 'Address',
+                  helpText: _visaController.domicileCountryAddressHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInSecondPage.value
+                      ? _visaController.domicileCountryAddressHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'During stay in Sri Lanka*',
-              controller: _visaController.sriLankanAddressController,
-              // helpText: 'Enter a valid date',
-              placeholderText: 'Address',
+            Obx(() {
+                return TextInput(
+                  labelText: 'During stay in Sri Lanka*',
+                  controller: _visaController.sriLankanAddressController,
+                  // helpText: 'Enter a valid date',
+                  placeholderText: 'Address',
+                  helpText: _visaController.sriLankanAddressHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInSecondPage.value
+                      ? _visaController.sriLankanAddressHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
 
@@ -87,25 +99,43 @@ class EntryVisaFormPageTwo extends StatelessWidget {
             ),
             const SizedBox(height: 20,),
 
-            TextInput(
-              labelText: 'Telephone*',
-              controller: _visaController.telephoneNumberController,
-              // helpText: 'Enter a valid date',
-              placeholderText: '+94112175268',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Telephone*',
+                  controller: _visaController.telephoneNumberController,
+                  // helpText: 'Enter a valid date',
+                  placeholderText: '+94112175268',
+                  helpText: _visaController.telephoneNumberHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInSecondPage.value
+                      ? _visaController.telephoneNumberHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Mobile*',
-              controller: _visaController.mobileNumberController,
-              // helpText: 'Enter a valid date',
-              placeholderText: '+94714872852',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Mobile*',
+                  controller: _visaController.mobileNumberController,
+                  // helpText: 'Enter a valid date',
+                  placeholderText: '+94714872852',
+                  helpText: _visaController.mobileNumberHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInSecondPage.value
+                      ? _visaController.mobileNumberHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
-            TextInput(
-              labelText: 'Email*',
-              controller: _visaController.emailController,
-              // helpText: 'Enter a valid date',
-              placeholderText: 'Email',
+            Obx(() {
+                return TextInput(
+                  labelText: 'Email*',
+                  controller: _visaController.emailController,
+                  // helpText: 'Enter a valid date',
+                  placeholderText: 'Email',
+                  helpText: _visaController.emailHintMessage.value.isNotEmpty
+                      && _visaController.hasAttemptNextInSecondPage.value
+                      ? _visaController.emailHintMessage.value : null,
+                );
+              }
             ),
             const SizedBox(height: 20,),
             TextInput(
@@ -152,10 +182,20 @@ class EntryVisaFormPageTwo extends StatelessWidget {
                         type: ButtonType.primaryColor,
                         buttonText: "Next",
                         onPressed: () {
-                          pageController.nextPage(
-                            duration: const Duration(milliseconds: 20),
-                            curve: Curves.easeInOut,
-                          );
+                          // if(_visaController.validateSecondPage()) {
+                            pageController.nextPage(
+                              duration: const Duration(milliseconds: 20),
+                              curve: Curves.easeInOut,
+                            );
+                          // } else {
+                          //   Get.snackbar(
+                          //       'Error',
+                          //       'Please check all inputs',
+                          //       colorText: CeylonScapeColor.black,
+                          //       backgroundColor: CeylonScapeColor.black0,
+                          //       icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
+                          //   );
+                          // }
                         }),
                   )
                 ],
