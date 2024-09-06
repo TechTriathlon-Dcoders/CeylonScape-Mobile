@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:CeylonScape/dto/visa/visa_request.dart';
 import 'package:CeylonScape/services/api_service.dart';
 import 'package:CeylonScape/theme/colors.dart';
@@ -60,17 +63,20 @@ class VisaController extends GetxController {
   final TextEditingController emergencyContactSpendableAmountController = TextEditingController();
   final TextEditingController urgeSupportReasonController = TextEditingController();
 
-  var selectedImagePath = ''.obs;
-  var selectedImageBytes = <int>[].obs;
+  var selectedImage = Rx<File?>(null);
+  RxString picture = ''.obs;
 
-  final ImagePicker _picker = ImagePicker();
+  // Method to pick image from gallery
+  Future<void> pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
-  // Method to pick an image from gallery or camera
-  Future<void> pickImage(ImageSource source) async {
-    final XFile? image = await _picker.pickImage(source: source);
-    if (image != null) {
-      selectedImagePath.value = image.path;
-      selectedImageBytes.value = await image.readAsBytes();
+    if (pickedFile != null) {
+      // Update the selectedImage with the picked file
+      selectedImage.value = File(pickedFile.path);
+
+      // Convert image to base64 and store it in base64Image
+      List<int> imageBytes = await selectedImage.value!.readAsBytes();
+      picture.value = base64Encode(imageBytes);
     }
   }
 
@@ -82,6 +88,7 @@ class VisaController extends GetxController {
   final RxBool hasAttemptNextInFifthPage = false.obs;
   final RxBool hasAttemptNextInSixthPage = false.obs;
 
+  RxString pictureHintMessage = ''.obs;
   RxString fullNameHintMessage = ''.obs;
   RxString nationalityHintMessage = ''.obs;
   RxString genderHintMessage = ''.obs;
@@ -139,7 +146,12 @@ class VisaController extends GetxController {
     return civilStatusController.text == 'Married';
   }
 
+  void clearImage() {
+    selectedImage.value = null;
+  }
+
   bool validateFirstPage() {
+    pictureHintMessage.value = picture.value.isEmpty ? 'Picture is required' : "";
     fullNameHintMessage.value = fullNameController.text.isEmpty ? 'Full name is required' : '';
     nationalityHintMessage.value = nationalityController.text.isEmpty ? 'Nationality is required' : '';
     genderHintMessage.value = genderController.text.isEmpty ? 'Gender is required' : '';
@@ -150,7 +162,8 @@ class VisaController extends GetxController {
 
     hasAttemptNextInFirstPage.value = true;
 
-    return fullNameHintMessage.value.isEmpty
+    return pictureHintMessage.value.isEmpty
+    && fullNameHintMessage.value.isEmpty
     && nationalityHintMessage.value.isEmpty
     && genderHintMessage.value.isEmpty
     && dateOfBirthHintMessage.value.isEmpty
@@ -301,20 +314,10 @@ class VisaController extends GetxController {
   }
 
   Future<bool> apply() async {
-    // check if all fields are filled
-    // if (!validateSignInForm()) {
-    //   Get.snackbar(
-    //     'Error',
-    //     'Please recheck all the fields',
-    //     backgroundColor: Colors.red.withOpacity(0.6),
-    //     colorText: CeylonScapeColor.black0,
-    //   );
-    //   return false;
-    // }
     hasAttemptedApplyVisa.value = false;
 
     VisaRequest applyVisaRequest = VisaRequest(
-        picture: pictureController.text,
+        picture: picture.value,
         fullName: fullNameController.text,
         nationality: nationalityController.text,
         gender: genderController.text,
@@ -370,7 +373,7 @@ class VisaController extends GetxController {
       final response = await _apiService.sendPostRequest(
         false, // Authentication is not required for login
         'visa/apply',
-        // data: loginRequest.toJson(),
+        data: applyVisaRequest.toJson(),
       );
       // print(response!.statusCode);
       // print(response.body);

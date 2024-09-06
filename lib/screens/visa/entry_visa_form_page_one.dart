@@ -7,7 +7,9 @@ import 'package:CeylonScape/widgets/button.dart';
 import 'package:CeylonScape/widgets/date_input.dart';
 import 'package:CeylonScape/widgets/dropdown_input.dart';
 import 'package:CeylonScape/widgets/text_input.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class EntryVisaFormPageOne extends StatelessWidget {
@@ -47,6 +49,95 @@ class EntryVisaFormPageOne extends StatelessWidget {
             ),
             const SizedBox(height: 64,),
 
+            Text(
+              'Upload a picture*',
+              style: CeylonScapeFont.contentRegular,
+            ),
+            const SizedBox(height: 8,),
+            Obx(() {
+                return DottedBorder(
+                  color: Colors.blue, // Color of the border
+                  strokeWidth: 2, // Thickness of the border
+                  dashPattern: const [15, 8], // Length of dashes and gaps
+                  borderType: BorderType.RRect, // Rounded rectangle border
+                  radius: const Radius.circular(12),
+                  child: Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    child: Column(
+                      children: [
+                        // SizedBox(
+                        //   // width: 100,
+                        //   // height: 30,
+                        //   child: Button(
+                        //     buttonText: "",
+                        //     rightIcon: 'assets/icons/upload.svg',
+                        //     onPressed: () => _visaController.pickImage(),
+                        //   ),
+                        // ),
+                        if (_visaController.selectedImage.value == null)
+                          ElevatedButton(
+                            onPressed: () {
+                              // Call the pickImage method in the controller
+                              _visaController.pickImage();
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              clipBehavior: Clip.antiAlias,
+                              child: SvgPicture.asset(
+                                'assets/icons/upload.svg',
+                                width: 24,
+                                height: 24,
+                              ),
+                            ),
+                          ),
+                        if (_visaController.selectedImage.value != null)
+                          ElevatedButton(
+                            onPressed: () {
+                              // Call the pickImage method in the controller
+                              _visaController.clearImage();
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: WidgetStateProperty.all(CeylonScapeColor.error50),
+                            ),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              clipBehavior: Clip.antiAlias,
+                              child: const Icon(Icons.close, color: CeylonScapeColor.black0,),
+                            ),
+                          ),
+                        const SizedBox(height: 20),
+                        // Reactive image display using Obx
+                        if (_visaController.selectedImage.value != null)
+                          Image.file(
+                            _visaController.selectedImage.value!,
+                            height: 200,
+                            width: 200,
+                            fit: BoxFit.cover,
+                          ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+            ),
+            Obx(() {
+                return Column(
+                  children: [
+                    if (_visaController.pictureHintMessage.value != '')
+                      const SizedBox(height: 3,),
+                    if (_visaController.pictureHintMessage.value != '')
+                      Text(
+                        _visaController.pictureHintMessage.value != '' ? _visaController.pictureHintMessage.value : '',
+                        style: CeylonScapeFont.captionRegular.copyWith(
+                            color: CeylonScapeColor.error50
+                        ),
+                      )
+                  ],
+                );
+              }
+            ),
+            const SizedBox(height: 20,),
             Obx(() {
                 return TextInput(
                   labelText: 'Full name*',
