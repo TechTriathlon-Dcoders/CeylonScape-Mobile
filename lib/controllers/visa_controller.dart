@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:CeylonScape/dto/visa/visa_request.dart';
 import 'package:CeylonScape/services/api_service.dart';
+import 'package:CeylonScape/services/auth_service.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/util/functions.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 
 class VisaController extends GetxController {
   final ApiService _apiService = ApiService();
+  final AuthService _authService = Get.find();
   final TextEditingController pictureController = TextEditingController();
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController nationalityController = TextEditingController();
@@ -66,15 +68,12 @@ class VisaController extends GetxController {
   var selectedImage = Rx<File?>(null);
   RxString picture = ''.obs;
 
-  // Method to pick image from gallery
   Future<void> pickImage() async {
     final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
-      // Update the selectedImage with the picked file
       selectedImage.value = File(pickedFile.path);
 
-      // Convert image to base64 and store it in base64Image
       List<int> imageBytes = await selectedImage.value!.readAsBytes();
       picture.value = base64Encode(imageBytes);
     }
@@ -235,10 +234,10 @@ class VisaController extends GetxController {
     placeOfPassportIssueHintMessage.value = placeOfPassportIssueController.text.isEmpty ? 'Place is required' : '';
     dateOfPassportIssueHintMessage.value = dateOfPassportIssueController.text.isEmpty ? 'Date is required' : '';
     dateOfPassportExpiryHintMessage.value = validateTwoDates(dateOfPassportIssueController.text, dateOfPassportExpiryController.text, 'Expiry date') ?? '';
-    previousPassportNumberHintMessage.value = validatePreviousPassportInfoFilled() ? 'Fill all if you have a previous passport' : '';
-    placeOfPreviousPassportIssueHintMessage.value = validatePreviousPassportInfoFilled() ? 'Fill all if you have a previous passport' : '';
-    dateOfPreviousPassportIssueHintMessage.value = validatePreviousPassportInfoFilled() ? 'Fill all if you have a previous passport' : '';
-    dateOfPreviousPassportExpiryHintMessage.value = validatePreviousPassportInfoFilled() ? 'Fill all if you have a previous passport'
+    previousPassportNumberHintMessage.value = !validatePreviousPassportInfoFilled() ? 'Fill all if you have a previous passport' : '';
+    placeOfPreviousPassportIssueHintMessage.value = !validatePreviousPassportInfoFilled() ? 'Fill all if you have a previous passport' : '';
+    dateOfPreviousPassportIssueHintMessage.value = !validatePreviousPassportInfoFilled() ? 'Fill all if you have a previous passport' : '';
+    dateOfPreviousPassportExpiryHintMessage.value = !validatePreviousPassportInfoFilled() ? 'Fill all if you have a previous passport'
         : validateTwoDates(dateOfPreviousPassportIssueController.text, dateOfPreviousPassportExpiryController.text, 'Expiry date') ?? '';
 
     hasAttemptNextInThirdPage.value = true;
@@ -259,9 +258,9 @@ class VisaController extends GetxController {
     spousePostalAddressHintMessage.value = spousePostalAddressController.text.isEmpty && isCivilStatusMarried() ? "Postal address is required" : '';
     spousePassportNumberHintMessage.value = spousePassportNumberController.text.isEmpty && isCivilStatusMarried() ? "Passport number is required" : '';
     spouseDateOfPassportExpiryHintMessage.value = spouseDateOfPassportExpiryController.text.isEmpty && isCivilStatusMarried() ? "Date of expiry is required" : '';
-    dateOfNaturalizedHintMessage.value = validateNaturalizedInfoFilled() ? 'Fill all if you have been naturalized' : '';
-    placeOfNaturalizedHintMessage.value = validateNaturalizedInfoFilled() ? 'Fill all if you have been naturalized' : '';
-    formerNationalityHintMessage.value = validateNaturalizedInfoFilled() ? 'Fill all if you have been naturalized'
+    dateOfNaturalizedHintMessage.value = !validateNaturalizedInfoFilled() ? 'Fill all if you have been naturalized' : '';
+    placeOfNaturalizedHintMessage.value = !validateNaturalizedInfoFilled() ? 'Fill all if you have been naturalized' : '';
+    formerNationalityHintMessage.value = !validateNaturalizedInfoFilled() ? 'Fill all if you have been naturalized'
         : nationalityController.text == formerNationalityController.text
         ? 'Cannot be your current nationality' : '';
 
@@ -277,16 +276,13 @@ class VisaController extends GetxController {
   }
 
   bool validateFifthPage() {
-    // routeAndModeOfTravelHintMessage.value =
     periodForVisitVisaHintMessage.value = periodForVisitVisaController.text.isEmpty ? 'Period is required' : '';
-    lastPlaceOfResidenceHintMessage.value = validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before' : '';
-    dateOfLeavingHintMessage.value = validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before'
+    lastPlaceOfResidenceHintMessage.value = !validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before' : '';
+    dateOfLeavingHintMessage.value = !validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before'
         : validateTwoDates(lastObtainedVisaDateOfIssueController.text, dateOfLeavingController.text, 'Leaving date') ?? '';
-    lastObtainedVisaTypeHintMessage.value = validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before' : '';
-    lastObtainedVisaDateOfIssueHintMessage.value = validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before' : '';
-    lastObtainedVisaPeriodOfValidityHintMessage.value = validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before' : '';
-    // lastObtainedVisaResidenceVisaNumberHintMessage.value =
-    // refusedVisaReasonHintMessage.value =
+    lastObtainedVisaTypeHintMessage.value = !validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before' : '';
+    lastObtainedVisaDateOfIssueHintMessage.value = !validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before' : '';
+    lastObtainedVisaPeriodOfValidityHintMessage.value = !validatePreviouslyInSriLankaFilled() ? 'Fill all if you were in Sri Lanka before' : '';
 
     hasAttemptNextInFifthPage.value = true;
 
@@ -299,11 +295,11 @@ class VisaController extends GetxController {
   }
 
   bool validateSixthPage() {
-    emergencyContactNameHintMessage.value = validateEmergencyContactInfoFilled() ? 'Fill all if you have an emergency contact' : '';
-    emergencyContactAddressHintMessage.value = validateEmergencyContactInfoFilled() ? 'Fill all if you have an emergency contact' : '';
-    emergencyContactContactNumberHintMessage.value = validateEmergencyContactInfoFilled() ? 'Fill all if you have an emergency contact'
+    emergencyContactNameHintMessage.value = !validateEmergencyContactInfoFilled() ? 'Fill all if you have an emergency contact' : '';
+    emergencyContactAddressHintMessage.value = !validateEmergencyContactInfoFilled() ? 'Fill all if you have an emergency contact' : '';
+    emergencyContactContactNumberHintMessage.value = !validateEmergencyContactInfoFilled() ? 'Fill all if you have an emergency contact'
         : validateMobileNumber(emergencyContactContactNumberController.text) ?? '';
-    emergencyContactRelationshipHintMessage.value = validateEmergencyContactInfoFilled() ? 'Fill all if you have an emergency contact' : '';
+    emergencyContactRelationshipHintMessage.value = !validateEmergencyContactInfoFilled() ? 'Fill all if you have an emergency contact' : '';
 
     hasAttemptNextInSixthPage.value = true;
 
@@ -371,12 +367,10 @@ class VisaController extends GetxController {
     );
     try {
       final response = await _apiService.sendPostRequest(
-        false, // Authentication is not required for login
-        'visa/apply',
-        data: applyVisaRequest.toJson(),
+        true, // Authentication is not required for login
+        'UserInfo',
+        data: applyVisaRequest.toJson(_authService.getUserId()),
       );
-      // print(response!.statusCode);
-      // print(response.body);
 
       if (response == null) {
         return false;

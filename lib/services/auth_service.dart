@@ -77,6 +77,6 @@ class AuthService extends GetxService {
     _prefs?.remove('isAuthenticated');
 
     // Navigate the user to the login screen
-    Get.offAllNamed('/login'); // Replace with your login route
+    // Get.offAllNamed('/login'); // Replace with your login route
   }
 }

@@ -25,7 +25,7 @@ class SignInController extends GetxController {
     isPasswordMissing.value = passwordController.text.isEmpty;
     hasAttemptedSignIn.value = true;
     
-    return emailController.text.isEmpty && passwordController.text.isEmpty;
+    return emailController.text.isNotEmpty && passwordController.text.isNotEmpty;
   }
 
   Future<bool> login() async {
@@ -47,11 +47,9 @@ class SignInController extends GetxController {
     try {
       final response = await _apiService.sendPostRequest(
         false, // Authentication is not required for login
-        'auth/login',
+        'api/Auth/Login',
         data: loginRequest.toJson(),
       );
-      // print(response!.statusCode);
-      // print(response.body);
       isLoginLoading.value = false;
 
       if (response == null) {

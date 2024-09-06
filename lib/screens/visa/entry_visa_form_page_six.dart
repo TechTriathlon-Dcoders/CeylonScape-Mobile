@@ -150,17 +150,17 @@ class EntryVisaFormPageSix extends StatelessWidget {
                         type: ButtonType.primaryColor,
                         buttonText: "Next",
                         onPressed: () async {
-                          // if(_visaController.validateSixthPage()) {
+                          if(_visaController.validateSixthPage()) {
                             await _showConfirmDialog(context, _visaController);
-                          // } else {
-                          //   Get.snackbar(
-                          //       'Error',
-                          //       'Please check all inputs',
-                          //       colorText: CeylonScapeColor.black,
-                          //       backgroundColor: CeylonScapeColor.black0,
-                          //       icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
-                          //   );
-                          // }
+                          } else {
+                            Get.snackbar(
+                                'Error',
+                                'Please check all inputs',
+                                colorText: CeylonScapeColor.black,
+                                backgroundColor: CeylonScapeColor.black0,
+                                icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
+                            );
+                          }
                         }),
                   )
                 ],

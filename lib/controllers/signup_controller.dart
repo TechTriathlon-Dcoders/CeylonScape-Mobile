@@ -11,7 +11,6 @@ import '../services/auth_service.dart';
 
 class SignUpController extends GetxController {
   final ApiService _apiService = ApiService();
-  final AuthService _authService = Get.find();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -29,26 +28,26 @@ class SignUpController extends GetxController {
   RxString firstNameHintMessage = ''.obs;
   RxString lastNameHintMessage = ''.obs;
 
-  // // Validate Email
-  // String? validateEmail(String email) {
-  //   String emailPattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
-  //   if (email.isEmpty) {
-  //     return 'Email is required';
-  //   } else if (!RegExp(emailPattern).hasMatch(email)) {
-  //     return 'Enter a valid email';
-  //   }
-  //   return null;
-  // }
-  //
-  // // Validate Mobile Number
-  // String? validateMobileNumber(String mobileNumber) {
-  //   if (mobileNumber.isEmpty) {
-  //     return 'Mobile number is required';
-  //   } else if (!mobileNumber.startsWith('+')) {
-  //     return 'Mobile number should start with a + sign';
-  //   }
-  //   return null;
-  // }
+  // Validate Email
+  String? validateEmail(String email) {
+    String emailPattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$';
+    if (email.isEmpty) {
+      return 'Email is required';
+    } else if (!RegExp(emailPattern).hasMatch(email)) {
+      return 'Enter a valid email';
+    }
+    return null;
+  }
+
+  // Validate Mobile Number
+  String? validateMobileNumber(String mobileNumber) {
+    if (mobileNumber.isEmpty) {
+      return 'Mobile number is required';
+    } else if (!mobileNumber.startsWith('+')) {
+      return 'Mobile number should start with a + sign';
+    }
+    return null;
+  }
 
   // Validate Password
   String? validatePassword(String password) {
@@ -94,8 +93,8 @@ class SignUpController extends GetxController {
         && mobileNumberHintMessage.value.isEmpty
         && passwordHintMessage.value.isEmpty
         && confirmPasswordHintMessage.value.isEmpty
-        && firstNameController.text.isEmpty
-        && lastNameController.text.isEmpty
+        && firstNameHintMessage.value.isEmpty
+        && lastNameHintMessage.value.isEmpty
     ;
   }
 
@@ -123,7 +122,7 @@ class SignUpController extends GetxController {
     try {
       final response = await _apiService.sendPostRequest(
         false, // Authentication is not required for login
-        'user',
+        'User',
         data: signUpRequest.toJson(),
       );
       isLoginLoading.value = false;
@@ -132,7 +131,7 @@ class SignUpController extends GetxController {
         return false;
       }
 
-      if (response.statusCode != 200) {
+      if (response.statusCode != 200 && response.statusCode != 201) {
         return false;
       }
 

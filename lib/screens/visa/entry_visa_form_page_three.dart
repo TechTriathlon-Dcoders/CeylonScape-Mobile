@@ -94,6 +94,7 @@ class EntryVisaFormPageThree extends StatelessWidget {
                   helpText: _visaController.dateOfPassportExpiryHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInThirdPage.value
                       ? _visaController.dateOfPassportExpiryHintMessage.value : null,
+                  lastDate: DateTime.now().add(const Duration(days: 300))
                 );
               }
             ),
@@ -149,6 +150,7 @@ class EntryVisaFormPageThree extends StatelessWidget {
                   helpText: _visaController.dateOfPassportExpiryHintMessage.value.isNotEmpty
                       && _visaController.hasAttemptNextInThirdPage.value
                       ? _visaController.dateOfPassportExpiryHintMessage.value : null,
+                  lastDate: DateTime.now().add(const Duration(days: 300)),
                 );
               }
             ),
@@ -176,20 +178,20 @@ class EntryVisaFormPageThree extends StatelessWidget {
                         type: ButtonType.primaryColor,
                         buttonText: "Next",
                         onPressed: () {
-                          // if(_visaController.validateThirdPage()) {
-                          pageController.nextPage(
-                            duration: const Duration(milliseconds: 20),
-                            curve: Curves.easeInOut,
-                          );
-                          // } else {
-                          //   Get.snackbar(
-                          //       'Error',
-                          //       'Please check all inputs',
-                          //       colorText: CeylonScapeColor.black,
-                          //       backgroundColor: CeylonScapeColor.black0,
-                          //       icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
-                          //   );
-                          // }
+                          if(_visaController.validateThirdPage()) {
+                            pageController.nextPage(
+                              duration: const Duration(milliseconds: 20),
+                              curve: Curves.easeInOut,
+                            );
+                          } else {
+                            Get.snackbar(
+                                'Error',
+                                'Please check all inputs',
+                                colorText: CeylonScapeColor.black,
+                                backgroundColor: CeylonScapeColor.black0,
+                                icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
+                            );
+                          }
                         }),
                   )
                 ],

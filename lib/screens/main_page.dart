@@ -61,7 +61,7 @@ class _ComponentsScreenState extends State<MainPage> {
           HomePage(),
           HomePage(),
           HomePage(),
-          ComponentScreen(),
+          HomePage(),
         ],
       ),
       bottomNavigationBar: SafeArea(

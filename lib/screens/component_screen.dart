@@ -1,4 +1,5 @@
 import 'package:CeylonScape/screens/signin_screen.dart';
+import 'package:CeylonScape/services/auth_service.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/widgets/card_dialog.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,9 @@ import 'signup_screen.dart';
 import '../widgets/button.dart';
 
 class ComponentScreen extends StatelessWidget {
-  const ComponentScreen({super.key});
+  ComponentScreen({super.key});
+
+  final AuthService _authService = Get.find();
 
   @override
   Widget build(context) {
@@ -37,7 +40,12 @@ class ComponentScreen extends StatelessWidget {
                 onPressed: () => Get.to(SignInScreen()),
               ),
               const SizedBox(height: 24),
-              const CardDialog()
+              const CardDialog(),
+              const SizedBox(height: 24),
+              Button(
+                buttonText: "Auth Flow",
+                onPressed: () => _authService.forceLogout(),
+              ),
             ],
           ),
         ),

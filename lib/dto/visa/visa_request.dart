@@ -159,57 +159,85 @@ class VisaRequest {
       urgeSupportReason: json['urgeSupportReason']
   );
 
-  Map<String, dynamic> toJson() => {
-    "picture" : picture,
-    "fullName" : fullName,
-    "nationality" : nationality,
-    "gender" : gender,
-    "dateOfBirth" : dateOfBirth,
-    "birthPlace" : birthPlace,
-    "birthCountry" : birthCountry,
-    "civilStatus" : civilStatus,
-    "height" : height,
-    "peculiarity" : peculiarity,
-    "domicileCountryAddress" : domicileCountryAddress,
-    "sriLankanAddress" : sriLankanAddress,
-    "telephoneNumber" : telephoneNumber,
-    "mobileNumber" : mobileNumber,
-    "email" : email,
-    "nameOfWorkPlace" : nameOfWorkPlace,
-    "addressOfWorkPlace" : addressOfWorkPlace,
-    "workPlaceEmail" : workPlaceEmail,
-    "passportNumber" : passportNumber,
-    "placeOfPassportIssue" : placeOfPassportIssue,
-    "dateOfPassportIssue" : dateOfPassportIssue,
-    "dateOfPassportExpiry" : dateOfPassportExpiry,
-    "previousPassportNumber" : previousPassportNumber,
-    "placeOfPreviousPassportIssue" : placeOfPreviousPassportIssue,
-    "dateOfPreviousPassportIssue" : dateOfPreviousPassportIssue,
-    "dateOfPreviousPassportExpiry" : dateOfPreviousPassportExpiry,
-    "spouseFullName" : spouseFullName,
-    "spouseNationality" : spouseNationality,
-    "spousePostalAddress" : spousePostalAddress,
-    "spousePassportNumber" : spousePassportNumber,
-    "spouseDateOfPassportExpiry" : spouseDateOfPassportExpiry,
-    "dateOfNaturalized" : dateOfNaturalized,
-    "placeOfNaturalized" : placeOfNaturalized,
-    "formerNationality" : formerNationality,
-    "routeAndModeOfTravel" : routeAndModeOfTravel,
-    "periodForVisitVisa" : periodForVisitVisa,
-    "lastPlaceOfResidence" : lastPlaceOfResidence,
-    "dateOfLeaving" : dateOfLeaving,
-    "lastObtainedVisaType" : lastObtainedVisaType,
-    "lastObtainedVisaDateOfIssue" : lastObtainedVisaDateOfIssue,
-    "lastObtainedVisaPeriodOfValidity" : lastObtainedVisaPeriodOfValidity,
-    "lastObtainedVisaResidenceVisaNumber" : lastObtainedVisaResidenceVisaNumber,
-    "refusedVisaReason" : refusedVisaReason,
-    "emergencyContactName" : emergencyContactName,
-    "emergencyContactAddress" : emergencyContactAddress,
-    "emergencyContactContactNumber" : emergencyContactContactNumber,
-    "emergencyContactRelationship" : emergencyContactRelationship,
-    "emergencyContactBelongingMoneyAmount" : emergencyContactBelongingMoneyAmount,
-    "emergencyContactNameOfCreditCard" : emergencyContactNameOfCreditCard,
-    "emergencyContactSpendableAmount" : emergencyContactSpendableAmount,
-    "urgeSupportReason" : urgeSupportReason,
+  Map<String, dynamic> toJson(int userId) => {
+    "fullName": fullName,
+    "nationality": nationality,
+    "gender": gender,
+    "dob": dateOfBirth,
+    "birthCountry": birthCountry,
+    "birthPlace": birthPlace,
+    "height": height,
+    "peculiarity": peculiarity,
+    "domicileAddress": domicileCountryAddress,
+    "addressDuringSriLanka": sriLankanAddress,
+    "telephone": telephoneNumber,
+    "mobile": mobileNumber,
+    "email": email,
+    "civilStatus": civilStatus == 'Single' ? 0 : 1,
+    "image" : picture,
+    "profession": {
+          "id":0,
+          "nameOfWorkplace": nameOfWorkPlace,
+          "addressOfWorkplace": addressOfWorkPlace,
+          "email": workPlaceEmail,
+          "fax": "facs"
+    },
+    "emergencyContacts": [
+      {
+        "name": emergencyContactName,
+        "address": emergencyContactAddress,
+        "contact": emergencyContactContactNumber,
+        "relationship": emergencyContactRelationship,
+        "nameOfCreditCard": emergencyContactNameOfCreditCard,
+        "spendableAmount": emergencyContactSpendableAmount,
+        "usdAmount" : emergencyContactBelongingMoneyAmount,
+        "support" : urgeSupportReason
+      }
+    ],
+    "naturalizationInfo": {
+      "naturalizationDate": dateOfNaturalized,
+      "placeOfNaturalization": placeOfNaturalized,
+      "formerNationality": formerNationality
+    },
+    "spouse": {
+      "fullname": spouseFullName,
+      "nationality": spouseNationality,
+      "postalAddress": spousePostalAddress,
+      "passportNumber": spousePassportNumber,
+      "dateOfExpiry": spouseDateOfPassportExpiry
+    },
+    "passport": {
+      "number": passportNumber,
+      "placeOfIssue": placeOfPassportIssue,
+      "dateOfIssue": dateOfPassportIssue,
+      "dateOfExpiry": dateOfPassportExpiry,
+      "previousNumber": previousPassportNumber,
+      "previousPlaceOfIssue": placeOfPreviousPassportIssue,
+      "previousDateOfIssue": dateOfPreviousPassportIssue,
+      "previousDateOfExpiry" : dateOfPreviousPassportExpiry
+    },
+    "entryVisas": [
+      {
+        "objectOfVisit": "Tourism",
+        "modeOfTravel": routeAndModeOfTravel,
+        "dateOfLeaving": dateOfLeaving,
+        "lastPlaceOfResidence": lastPlaceOfResidence,
+        "dateOfIssue": lastObtainedVisaDateOfIssue,
+        "residenceVisaNumber": lastObtainedVisaResidenceVisaNumber,
+        "hasRefusedVisa": refusedVisaReason,
+        "userInfoId": 1,
+        "periodOfValidity": lastObtainedVisaPeriodOfValidity,
+        "PeriodOfVisitVisa": periodForVisitVisa,
+        "lastObtainedVisa": lastObtainedVisaType
+      }
+    ],
+    "residenceVisaInfo": {
+        "id": 0,
+        "dateOfArrival": "2020-01-01T00:00:00Z",
+        "reasonForApplyingVisa": "Work",
+        "applyingFor": "Work Visa",
+        "salaryIncome": "50000"
+    },
+    "userID": userId
   };
 }

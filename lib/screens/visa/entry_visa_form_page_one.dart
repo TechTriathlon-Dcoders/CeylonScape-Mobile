@@ -66,19 +66,9 @@ class EntryVisaFormPageOne extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                     child: Column(
                       children: [
-                        // SizedBox(
-                        //   // width: 100,
-                        //   // height: 30,
-                        //   child: Button(
-                        //     buttonText: "",
-                        //     rightIcon: 'assets/icons/upload.svg',
-                        //     onPressed: () => _visaController.pickImage(),
-                        //   ),
-                        // ),
                         if (_visaController.selectedImage.value == null)
                           ElevatedButton(
                             onPressed: () {
-                              // Call the pickImage method in the controller
                               _visaController.pickImage();
                             },
                             child: ClipRRect(
@@ -94,7 +84,6 @@ class EntryVisaFormPageOne extends StatelessWidget {
                         if (_visaController.selectedImage.value != null)
                           ElevatedButton(
                             onPressed: () {
-                              // Call the pickImage method in the controller
                               _visaController.clearImage();
                             },
                             style: ButtonStyle(
@@ -240,20 +229,20 @@ class EntryVisaFormPageOne extends StatelessWidget {
                       type: ButtonType.primaryColor,
                       buttonText: "Next",
                       onPressed: () {
-                        // if(_visaController.validateFirstPage()) {
+                        if(_visaController.validateFirstPage()) {
                           pageController.nextPage(
                             duration: const Duration(milliseconds: 20),
                             curve: Curves.easeInOut,
                           );
-                        // } else {
-                        //   Get.snackbar(
-                        //       'Error',
-                        //       'Please check all inputs',
-                        //       colorText: CeylonScapeColor.black,
-                        //       backgroundColor: CeylonScapeColor.black0,
-                        //       icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
-                        //   );
-                        // }
+                        } else {
+                          Get.snackbar(
+                              'Error',
+                              'Please check all inputs',
+                              colorText: CeylonScapeColor.black,
+                              backgroundColor: CeylonScapeColor.black0,
+                              icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
+                          );
+                        }
                       }),
                 )
               ],

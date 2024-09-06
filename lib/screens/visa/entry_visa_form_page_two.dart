@@ -172,20 +172,20 @@ class EntryVisaFormPageTwo extends StatelessWidget {
                         type: ButtonType.primaryColor,
                         buttonText: "Next",
                         onPressed: () {
-                          // if(_visaController.validateSecondPage()) {
+                          if(_visaController.validateSecondPage()) {
                             pageController.nextPage(
                               duration: const Duration(milliseconds: 20),
                               curve: Curves.easeInOut,
                             );
-                          // } else {
-                          //   Get.snackbar(
-                          //       'Error',
-                          //       'Please check all inputs',
-                          //       colorText: CeylonScapeColor.black,
-                          //       backgroundColor: CeylonScapeColor.black0,
-                          //       icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
-                          //   );
-                          // }
+                          } else {
+                            Get.snackbar(
+                                'Error',
+                                'Please check all inputs',
+                                colorText: CeylonScapeColor.black,
+                                backgroundColor: CeylonScapeColor.black0,
+                                icon: const Icon(Icons.error_rounded, color: CeylonScapeColor.error50,)
+                            );
+                          }
                         }),
                   )
                 ],
