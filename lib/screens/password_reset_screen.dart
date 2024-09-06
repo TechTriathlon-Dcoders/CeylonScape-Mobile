@@ -1,4 +1,5 @@
 import 'package:CeylonScape/screens/otp_screen.dart';
+import 'package:CeylonScape/screens/signin_screen.dart';
 import 'package:CeylonScape/screens/signup_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/widgets/button.dart';
@@ -7,9 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
-class ForgotPasswordScreen extends StatelessWidget {
-  ForgotPasswordScreen({super.key});
-  final TextEditingController mobileNumberController = TextEditingController();
+class PasswordResetScreen extends StatelessWidget {
+  PasswordResetScreen({super.key});
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(60), bottomRight: Radius.circular(60)),
-                  color: CeylonScapeColor.primary30.withOpacity(0.2)
+                  color: CeylonScapeColor.primary30.withOpacity(0.3)
               ),
               child: SvgPicture.asset("assets/images/reset-password.svg"),
             ),
@@ -31,7 +33,7 @@ class ForgotPasswordScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Reset Password',
+                  const Text('Provide a new password',
                     style: TextStyle(
                       color: CeylonScapeColor.primary,
                       fontSize: 24,
@@ -41,16 +43,26 @@ class ForgotPasswordScreen extends StatelessWidget {
                     height: 15,
                   ),
                   TextInput(
-                    labelText: 'Email',
-                    placeholderText: 'Email',
-                    controller: mobileNumberController,
+                    labelText: 'Password',
+                    placeholderText: 'Password',
+                    isObscureText: true,
+                    controller: passwordController,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  TextInput(
+                    labelText: 'Confirm Password',
+                    placeholderText: 'Confirm Password',
+                    isObscureText: true,
+                    controller: confirmPasswordController,
                   ),
                   const SizedBox(
                     height: 20,
                   ),
                   Button(
                       buttonText: "Reset",
-                      onPressed: () => Get.to(() => OtpScreen())),
+                      onPressed: () => Get.to(() => SignInScreen())),
                   const SizedBox(
                     height: 10,
                   ),

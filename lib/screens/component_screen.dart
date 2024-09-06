@@ -1,4 +1,6 @@
+import 'package:CeylonScape/screens/signin_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
+import 'package:CeylonScape/widgets/card_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'buttons_screen.dart';
@@ -29,6 +31,13 @@ class ComponentScreen extends StatelessWidget {
                 buttonText: "Inputs",
                 onPressed: () => Get.to(InputScreen()),
               ),
+              const SizedBox(height: 24),
+              Button(
+                buttonText: "Auth Flow",
+                onPressed: () => Get.to(SignInScreen()),
+              ),
+              const SizedBox(height: 24),
+              const CardDialog()
             ],
           ),
         ),

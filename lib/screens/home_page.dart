@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:CeylonScape/screens/component_screen.dart';
+import 'package:CeylonScape/screens/visa/visa_get_started_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/theme/fonts.dart';
 import 'package:carousel_slider/carousel_controller.dart';
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   ];
   List<QuickAccessItem> quickAccessItems = [
     QuickAccessItem(label: 'Plan your Trip', icon: '1.svg', route: const ComponentScreen()),
-    QuickAccessItem(label: 'Apply Visa', icon: '2.svg', route: const ComponentScreen()),
+    QuickAccessItem(label: 'Apply Visa', icon: '2.svg', route: const VisaGetStartedScreen()),
     QuickAccessItem(label: 'Book by Train/Bus', icon: '3.svg', route: const ComponentScreen()),
     QuickAccessItem(label: 'Chat with AI Assistant', icon: '4.svg', route: const ComponentScreen()),
   ];

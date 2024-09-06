@@ -45,10 +45,26 @@ class DateInput extends StatefulWidget {
 class _DateInputState extends State<DateInput> {
 
   late bool obscureText;
+  String previousText = '';
 
   @override
   void initState() {
     super.initState();
+    // Add a listener to detect changes in the controller's text
+    widget.controller.addListener(() {
+      if (widget.controller.text != previousText) {
+        // The text has changed
+        print('Text changed from "$previousText" to "${widget.controller.text}"');
+        previousText = widget.controller.text;
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    // Remove the listener when the widget is disposed
+    widget.controller.removeListener(() {});
+    super.dispose();
   }
 
   Widget build(BuildContext context) {
@@ -72,6 +88,7 @@ class _DateInputState extends State<DateInput> {
             onChanged: widget.onChanged != null ? (value) => widget.onChanged!(value) : null,
             controller: widget.type == InputType.disabled ? null : widget.controller,
             keyboardType: TextInputType.text,
+            readOnly: true,
             enabled: widget.type == InputType.disabled ? false : true,
             style: CeylonScapeFont.highlightRegular,
             decoration: InputDecoration(
@@ -101,18 +118,31 @@ class _DateInputState extends State<DateInput> {
                   );
                   if (picked != null) {
                     setState(() {
-                      String formattedDate = DateFormat('yyyy:MM:dd').format(picked);
-                      widget.controller.text = formattedDate;
+                      // Display the date in 'yyyy-MM-dd' format in the text field
+                      String formattedDate = DateFormat('yyyy-MM-dd').format(picked);
+
+                      // Store the ISO 8601 format in the controller's value
+                      widget.controller.text = picked.toIso8601String();
+
+                      // Update the TextField to display the formatted date
+                      widget.controller.value = widget.controller.value.copyWith(
+                        text: formattedDate,
+                        selection: TextSelection.collapsed(offset: formattedDate.length),
+                      );
+
+                      print(widget.controller.text);
+                      // String formattedDate = DateFormat('yyyy:MM:dd').format(picked);
+                      // widget.controller.text = formattedDate;
                     });
                   }
                 },
               ),
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: CeylonScapeColor.black30)),
+                  borderSide: const BorderSide(color: CeylonScapeColor.primary30, width: 1.5)),
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: CeylonScapeColor.primary50)),
+                  borderSide: const BorderSide(color: CeylonScapeColor.primary50, width: 1.5)),
               hintStyle: const TextStyle(color: CeylonScapeColor.black30),
             ),
           ),

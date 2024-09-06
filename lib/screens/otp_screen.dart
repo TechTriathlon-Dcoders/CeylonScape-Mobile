@@ -1,3 +1,4 @@
+import 'package:CeylonScape/screens/password_reset_screen.dart';
 import 'package:CeylonScape/screens/signin_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/widgets/button.dart';
@@ -23,7 +24,7 @@ class OtpScreen extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                   borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(60), bottomRight: Radius.circular(60)),
-                  color: CeylonScapeColor.black.withOpacity(0.3)
+                  color: CeylonScapeColor.primary30.withOpacity(0.3)
               ),
               child: SvgPicture.asset("assets/images/otp.svg"),
             ),
@@ -50,7 +51,7 @@ class OtpScreen extends StatelessWidget {
                   ),
                   Button(
                       buttonText: "Verify",
-                      onPressed: () => Get.to(() => SignInScreen())),
+                      onPressed: () => Get.to(() => PasswordResetScreen())),
                   const SizedBox(
                     height: 10,
                   ),

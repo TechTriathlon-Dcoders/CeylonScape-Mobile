@@ -59,6 +59,7 @@ dependencies:
   iconsax: ^0.0.8
   dropdown_button2: ^2.3.9
   searchfield: ^1.0.9
+  expandable_page_view: ^1.0.17
 
 dev_dependencies:
   flutter_test:

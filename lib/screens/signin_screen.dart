@@ -1,4 +1,4 @@
-import 'package:CeylonScape/controllers/auth_controller.dart';
+import 'package:CeylonScape/controllers/signin_controller.dart';
 import 'package:CeylonScape/screens/main_page.dart';
 import 'package:CeylonScape/screens/forget_password_screen.dart';
 import 'package:CeylonScape/screens/signup_screen.dart';
@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
-  final AuthController authController = Get.find();
+  final SignInController signInController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +24,12 @@ class SignInScreen extends StatelessWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(60), bottomRight: Radius.circular(60)),
-                color: CeylonScapeColor.black.withOpacity(0.3)
+                color: CeylonScapeColor.primary30.withOpacity(0.3)
               ),
               child: SvgPicture.asset("assets/images/sign-in.svg"),
             ),
             Container(
-              padding: const EdgeInsets.all(20),
+              padding: const EdgeInsets.all(24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -42,27 +42,39 @@ class SignInScreen extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  TextInput(
-                    labelText: 'Mobile Number',
-                    controller: authController.emailController,
-                    // type: InputType.noTitle,
+                  Obx(() {
+                      return TextInput(
+                        labelText: 'Email',
+                        placeholderText: 'Email',
+                        helpText: signInController.hasAttemptedSignIn.value && signInController.isEmailMissing.value
+                            ? "Email is required"
+                            : null,
+                        controller: signInController.emailController,
+                      );
+                    }
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  TextInput(
-                    labelText: 'Password',
-                    controller: authController.passwordController,
-                    // type: InputType.noTitle,
-                    isObscureText: true,
+                  Obx(() {
+                      return TextInput(
+                        labelText: 'Password',
+                        placeholderText: 'Password',
+                        helpText: signInController.hasAttemptedSignIn.value && signInController.isPasswordMissing.value
+                            ? "Password is required"
+                            : null,
+                        controller: signInController.passwordController,
+                        isObscureText: true,
+                      );
+                    }
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Button(
-                      buttonText: "Login",
+                      buttonText: "Sign In",
                       onPressed: () => {
-                        authController.login().then((value) {
+                        signInController.login().then((value) {
                           if (value) {
                             Get.offAll(() => const MainPage());
                             Get.snackbar(
