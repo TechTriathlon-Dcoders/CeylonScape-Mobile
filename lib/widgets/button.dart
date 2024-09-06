@@ -68,10 +68,11 @@ class Button extends StatelessWidget {
                     : BorderSide.none,
                 borderRadius: BorderRadius.circular(50),
               ),
-              shadows: const [
+              shadows: [
                 BoxShadow(
-                  color: Color(0x661EA0D9),
-                  offset: Offset(0, 4.5),
+                  color: backgroundColor.withOpacity(0.5),
+                  // color: Color(0x661EA0D9),
+                  offset: const Offset(0, 4.5),
                   blurRadius: 15,
                   spreadRadius: 0,
                 ),

@@ -7,13 +7,16 @@ class CustomCard extends StatelessWidget {
   final Widget child; // New property to pass a child widget
   final CardType type;
   final bool showShadow;
-  final bool showBorder;
+  final BoxBorder? border;
+  final double borderRadius;
+
   const CustomCard({
     super.key,
     required this.child,
-    required this.type, // Initialize the child widget
+    required this.type,
+    this.border,
+    this.borderRadius = 20,
     this.showShadow = true,
-    this.showBorder = false,
   });
 
   @override
@@ -23,10 +26,10 @@ class CustomCard extends StatelessWidget {
       decoration: BoxDecoration(
         boxShadow: [
           showShadow
-              ? const BoxShadow(
-                  color: CeylonScapeColor.black0,
-                  blurRadius: 16,
-                  offset: Offset(0, 8),
+              ? BoxShadow(
+                  color: CeylonScapeColor.black40.withOpacity(0.4),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
                   spreadRadius: 0,
                 )
               : const BoxShadow(
@@ -36,6 +39,7 @@ class CustomCard extends StatelessWidget {
                   spreadRadius: 0,
                 ),
         ],
+        color: CeylonScapeColor.black0,
         // gradient: LinearGradient(
         //   colors: type == CardType.light || type == CardType.addon || type == CardType.datapackage || type == CardType.voicepackage || type == CardType.extragb1
         //       ? CeylonScapeColor.lightGradient
@@ -43,13 +47,8 @@ class CustomCard extends StatelessWidget {
         //   begin: Alignment.topLeft,
         //   end: Alignment.bottomRight,
         // ),
-        border: showBorder
-            ? Border.all(
-                color: CeylonScapeColor.black5,
-                width: 1,
-              )
-            : null,
-        borderRadius: BorderRadius.circular(20),
+        border: border,
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Container(
         child: child,

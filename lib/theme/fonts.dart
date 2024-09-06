@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CeylonScapeFont {
-  static TextStyle baseStyle = GoogleFonts.poppins(
+  static TextStyle baseStyle = GoogleFonts.inter(
       textStyle: const TextStyle(
         height: 1.2,
       )
@@ -106,5 +106,13 @@ class CeylonScapeFont {
   static final TextStyle headingLarge = baseStyle.copyWith(
     fontSize: 24,
     fontWeight: FontWeight.w600,
+  );
+  static final TextStyle headingLarger = baseStyle.copyWith(
+    fontSize: 28,
+    fontWeight: FontWeight.w500,
+  );
+  static final TextStyle headingExtraLarge = baseStyle.copyWith(
+    fontSize: 32,
+    fontWeight: FontWeight.w500,
   );
 }

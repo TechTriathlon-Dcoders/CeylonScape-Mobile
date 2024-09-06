@@ -12,7 +12,7 @@ class DropdownInput extends StatefulWidget {
   final Color color;
   final double height;
   final Color fillColor;
-  final String labelText;
+  final String? labelText;
   final String? placeholderText;
   final String? helpText;
   final TextEditingController controller;
@@ -21,13 +21,14 @@ class DropdownInput extends StatefulWidget {
 
   const DropdownInput({
     super.key,
-    required this.labelText,
+
     required this.controller,
     required this.options,
     this.type = InputType.enabled,
     this.color = CeylonScapeColor.black40,
     this.height = 44,
     this.fillColor = CeylonScapeColor.black5,
+    this.labelText,
     this.helpText,
     this.onChanged,
     this.placeholderText,
@@ -52,20 +53,22 @@ class _DateInputState extends State<DropdownInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.labelText,
-          style: CeylonScapeFont.contentRegular,
-        ),
-        const SizedBox(
-          height: 6,
-        ),
+        if (widget.labelText != null)
+          Text(
+            widget.labelText ?? '',
+            style: CeylonScapeFont.contentRegular,
+          ),
+        if (widget.labelText != null)
+          const SizedBox(
+            height: 6,
+          ),
         Container(
           height: widget.height,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: CeylonScapeColor.black30,
-              width: 1.0,
+              color: CeylonScapeColor.primary30,
+              width: 1.5,
             )
           ),
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),

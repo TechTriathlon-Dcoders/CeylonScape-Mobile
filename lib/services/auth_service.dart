@@ -39,9 +39,9 @@ class AuthService extends GetxService {
     return (user != null) ? user!.value.mobileNumber.replaceFirst('0', '+94') : "";
   }
 
-  String getProfileImage(){
-    return (user != null) ? user!.value.image : "profile.png";
-  }
+  // String getProfileImage(){
+  //   return (user != null) ? user!.value.image : "profile.png";
+  // }
 
   void updateBearerToken(String newToken) {
     _bearerToken = newToken;
@@ -59,10 +59,8 @@ class AuthService extends GetxService {
       firstName: loginResponse.firstName,
       lastName: loginResponse.lastName,
       email: loginResponse.email,
-      nic: loginResponse.nic,
       mobileNumber: loginResponse.mobileNumber,
       password: "",
-      image: loginResponse.image,
     ).obs;
     updateBearerToken(loginResponse.jwtToken);
   }
@@ -79,6 +77,6 @@ class AuthService extends GetxService {
     _prefs?.remove('isAuthenticated');
 
     // Navigate the user to the login screen
-    Get.offAllNamed('/login'); // Replace with your login route
+    // Get.offAllNamed('/login'); // Replace with your login route
   }
 }

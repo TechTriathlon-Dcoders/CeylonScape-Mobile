@@ -1,4 +1,5 @@
 import 'package:CeylonScape/controllers/screen_controller.dart';
+import 'package:CeylonScape/screens/signin_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -28,7 +29,7 @@ class SplashScreenState extends State<SplashScreen> {
   _navigateToHome() async {
     await Future.delayed(const Duration(milliseconds: 2000), (){});
     _screenController.isSplashScreenSeen.value = true;
-    Get.to(() => const MainPage(), duration: const Duration(milliseconds: 1000),transition: Transition.native);
+    Get.to(() => SignInScreen(), duration: const Duration(milliseconds: 1000),transition: Transition.native);
   }
 
   @override

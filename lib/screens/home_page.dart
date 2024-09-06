@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:CeylonScape/screens/component_screen.dart';
+import 'package:CeylonScape/screens/visa/visa_get_started_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/theme/fonts.dart';
 import 'package:carousel_slider/carousel_controller.dart';
@@ -18,15 +19,15 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController searchController = TextEditingController();
   List<SearchItem> items = [
-    SearchItem(label: 'Home', route: const ComponentScreen()),
-    SearchItem(label: 'Profile', route: const ComponentScreen()),
-    SearchItem(label: 'Settings', route: const ComponentScreen()),
+    // SearchItem(label: 'Home', route: const ComponentScreen()),
+    // SearchItem(label: 'Profile', route: const ComponentScreen()),
+    // SearchItem(label: 'Settings', route: const ComponentScreen()),
   ];
   List<QuickAccessItem> quickAccessItems = [
-    QuickAccessItem(label: 'Plan your Trip', icon: '1.svg', route: const ComponentScreen()),
-    QuickAccessItem(label: 'Apply Visa', icon: '2.svg', route: const ComponentScreen()),
-    QuickAccessItem(label: 'Book by Train/Bus', icon: '3.svg', route: const ComponentScreen()),
-    QuickAccessItem(label: 'Chat with AI Assistant', icon: '4.svg', route: const ComponentScreen()),
+    QuickAccessItem(label: 'Plan your Trip', icon: '1.svg', route: ComponentScreen()),
+    QuickAccessItem(label: 'Apply Visa', icon: '2.svg', route: const VisaGetStartedScreen()),
+    QuickAccessItem(label: 'Book by Train/Bus', icon: '3.svg', route: ComponentScreen()),
+    QuickAccessItem(label: 'Chat with AI Assistant', icon: '4.svg', route: ComponentScreen()),
   ];
   List<TopAttraction> topAttractions = [
     TopAttraction(

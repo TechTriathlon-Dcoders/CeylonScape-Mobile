@@ -2,7 +2,6 @@ class SignUpRequest {
   String email;
   String firstName;
   String lastName;
-  String nic;
   String mobileNumber;
   String password;
 
@@ -10,7 +9,6 @@ class SignUpRequest {
     required this.email,
     required this.firstName,
     required this.lastName,
-    required this.nic,
     required this.mobileNumber,
     required this.password
   });
@@ -19,7 +17,6 @@ class SignUpRequest {
       email: json["mobileNumber"],
       firstName: json["firstName"],
       lastName: json["lastName"],
-      nic: json["nic"],
       mobileNumber: json["phoneNumber"],
       password: json["password"]
   );
@@ -28,7 +25,6 @@ class SignUpRequest {
     "email" : email,
     "firstName" : firstName,
     "lastName" : lastName,
-    "nic" : nic,
     "mobileNumber" : mobileNumber,
     "password" : password,
   };

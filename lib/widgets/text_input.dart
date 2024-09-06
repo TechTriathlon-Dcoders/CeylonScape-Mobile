@@ -9,19 +9,22 @@ class TextInput extends StatefulWidget {
   final Color color;
   final double height;
   final Color fillColor;
-  final String labelText;
+  final String? labelText;
   final String? placeholderText;
   final String? helpText;
   final bool isObscureText;
   final TextEditingController controller;
   final void Function(String)? onChanged;
   final bool isNumber;
+  final bool isTextArea;
   final bool isCurrency;
+  final String? initialValue;
+  final bool isProhibitedEdit;
 
   const TextInput({
     super.key,
-    required this.labelText,
     required this.controller,
+    this.labelText,
     this.type = InputType.enabled,
     this.color = CeylonScapeColor.black40,
     this.height = 44,
@@ -29,9 +32,12 @@ class TextInput extends StatefulWidget {
     this.isObscureText = false,
     this.isNumber = false,
     this.isCurrency = false,
+    this.isTextArea = false,
     this.helpText,
     this.onChanged,
     this.placeholderText,
+    this.initialValue,
+    this.isProhibitedEdit = false,
   });
 
   @override
@@ -45,7 +51,10 @@ class _TextInputState extends State<TextInput> {
   @override
   void initState() {
     super.initState();
-    obscureText = widget.isObscureText ? true : false;
+    obscureText = widget.isObscureText;
+    if (widget.initialValue != null && widget.controller.text.isEmpty) {
+      widget.controller.text = widget.initialValue!;
+    }
   }
 
   Widget build(BuildContext context) {
@@ -53,27 +62,31 @@ class _TextInputState extends State<TextInput> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          widget.labelText,
-          style: CeylonScapeFont.contentRegular,
-        ),
-        const SizedBox(
-          height: 6,
-        ),
+        if (widget.labelText != null)
+          Text(
+            widget.labelText ?? '',
+            style: CeylonScapeFont.contentRegular,
+          ),
+        if (widget.labelText != null)
+          const SizedBox(
+            height: 6,
+          ),
         Container(
           height: widget.height,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
           ),
           child: TextField(
+            maxLines: widget.isTextArea ? 10 : 1,
             onChanged: widget.onChanged != null ? (value) => widget.onChanged!(value) : null,
             controller: widget.type == InputType.disabled ? null : widget.controller,
             obscureText: obscureText,
-            keyboardType: widget.isNumber ? TextInputType.number : TextInputType.text,
+            keyboardType: widget.isNumber ? TextInputType.number : widget.isTextArea ? TextInputType.multiline : TextInputType.text,
+            readOnly: widget.isProhibitedEdit,
             enabled: widget.type == InputType.disabled ? false : true,
             style: CeylonScapeFont.highlightRegular,
             decoration: InputDecoration(
-              hintText: widget.placeholderText ?? widget.labelText,
+              hintText: widget.placeholderText ?? '',
               contentPadding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 10.0),
               prefixIcon: widget.isCurrency
                   ? Text(
@@ -99,10 +112,10 @@ class _TextInputState extends State<TextInput> {
               ) : null,
               enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: CeylonScapeColor.black30)),
+                  borderSide: const BorderSide(color: CeylonScapeColor.primary30, width: 1.5)),
               focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: CeylonScapeColor.primary50)),
+                  borderSide: const BorderSide(color: CeylonScapeColor.primary50, width: 1.5)),
               hintStyle: const TextStyle(color: CeylonScapeColor.black30),
             ),
           ),

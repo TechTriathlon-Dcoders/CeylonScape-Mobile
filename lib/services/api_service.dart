@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:CeylonScape/util/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+
 
 import '../theme/colors.dart';
 import 'auth_service.dart';
@@ -87,7 +89,7 @@ class ApiService extends GetConnect {
       if (response.statusCode == 401) {
         throw ForceLogoutException("Error: 401 Unauthorized");
       }
-      print(response.body);
+      // print(response.body);
       return response;
     } catch (error) {
       _handleError(error);
@@ -95,6 +97,82 @@ class ApiService extends GetConnect {
       return null;
     }
   }
+
+  Future<Response<T>?> sendPostRequestWithFiles<T>(
+      bool isAuthRequired,
+      String endpoint, {
+        dynamic data,
+        Map<String, String>? headers = const {},
+        Map<String, dynamic>? query = const {},
+        T Function(dynamic)? decoder,
+        bool isMultipart = false,
+        List<Map<String, dynamic>>? files, // For file uploads
+      }) async {
+    try {
+      // Add auth header if required
+      Map<String, String> finalHeaders = {
+        ...headers ?? {},
+        if (isAuthRequired)
+          'Authorization': 'Bearer ${_authService.getBearerToken()}',
+      };
+
+      var response;
+
+      if (isMultipart && files != null) {
+        // Handle multipart form-data request
+        final request = http.MultipartRequest('POST', Uri.parse(baseUrl + endpoint));
+
+        request.headers.addAll(finalHeaders);
+
+        // Add fields (if any)
+        if (data != null && data is Map<String, dynamic>) {
+          data.forEach((key, value) {
+            request.fields[key] = value.toString();
+          });
+        }
+
+        // Attach files to request
+        for (var fileData in files) {
+          final file = http.MultipartFile.fromBytes(
+            fileData['field'],
+            fileData['bytes'],
+            filename: fileData['filename'],
+          );
+          request.files.add(file);
+        }
+
+        // Add query parameters (if any)
+        request.fields.addAll(query?.map((key, value) => MapEntry(key, value.toString())) ?? {});
+
+        // Send the multipart request
+        final streamedResponse = await request.send();
+        response = await http.Response.fromStream(streamedResponse);
+      } else {
+        // Handle regular POST request
+        response = await post(
+          baseUrl + endpoint,
+          data,
+          headers: finalHeaders,
+          query: query,
+          decoder: decoder,
+        );
+      }
+
+      if (kDebugMode) {
+        print(response);
+      }
+
+      if (response.statusCode == 401) {
+        throw ForceLogoutException("Error: 401 Unauthorized");
+      }
+
+      return response as Response<T>;
+    } catch (error) {
+      _handleError(error);
+      return null;
+    }
+  }
+
 
   void _handleError(dynamic error) {
     if (error is SocketException) {

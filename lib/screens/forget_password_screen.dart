@@ -20,9 +20,9 @@ class ForgotPasswordScreen extends StatelessWidget {
             Container(
               height: 390,
               width: double.infinity,
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(bottomLeft: Radius.circular(60), bottomRight: Radius.circular(60)),
-                  // color: CeylonScapeColor.lightGrey.withOpacity(0.3)
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(bottomLeft: Radius.circular(60), bottomRight: Radius.circular(60)),
+                  color: CeylonScapeColor.primary30.withOpacity(0.2)
               ),
               child: SvgPicture.asset("assets/images/reset-password.svg"),
             ),
@@ -40,13 +40,13 @@ class ForgotPasswordScreen extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  // InputField(
-                  //   labelText: 'Mobile Number',
-                  //   controller: mobileNumberController,
-                  //   type: InputType.noTitle,
-                  // ),
+                  TextInput(
+                    labelText: 'Email',
+                    placeholderText: 'Email',
+                    controller: mobileNumberController,
+                  ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Button(
                       buttonText: "Reset",
