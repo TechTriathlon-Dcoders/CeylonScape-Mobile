@@ -20,6 +20,8 @@ class TextInput extends StatefulWidget {
   final bool isCurrency;
   final String? initialValue;
   final bool isProhibitedEdit;
+  final bool isEnableBorder;
+  final bool isFocusBorder;
 
   const TextInput({
     super.key,
@@ -38,6 +40,8 @@ class TextInput extends StatefulWidget {
     this.placeholderText,
     this.initialValue,
     this.isProhibitedEdit = false,
+    this.isEnableBorder = true,
+    this.isFocusBorder = true,
   });
 
   @override
@@ -110,12 +114,13 @@ class _TextInputState extends State<TextInput> {
                   });
                 },
               ) : null,
-              enabledBorder: OutlineInputBorder(
+              border: InputBorder.none,
+              enabledBorder: widget.isEnableBorder ? OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: CeylonScapeColor.primary30, width: 1.5)),
-              focusedBorder: OutlineInputBorder(
+                  borderSide: const BorderSide(color: CeylonScapeColor.primary30, width: 1.5)) : null,
+              focusedBorder: widget.isFocusBorder ? OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8),
-                  borderSide: const BorderSide(color: CeylonScapeColor.primary50, width: 1.5)),
+                  borderSide: const BorderSide(color: CeylonScapeColor.primary50, width: 1.5)) : null,
               hintStyle: const TextStyle(color: CeylonScapeColor.black30),
             ),
           ),

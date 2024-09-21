@@ -53,7 +53,17 @@ class _ComponentsScreenState extends State<MainPage> {
   @override
   Widget build(context) {
     return Scaffold(
+      appBar: AppBar(
+        titleSpacing: 0,
+        title: Text(
+          '',
+          style: CeylonScapeFont.featureEmphasis,
+        ),
+        centerTitle: true,
+        toolbarHeight: 0,
+      ),
       extendBody: true,
+      extendBodyBehindAppBar: true,
       body: PageView(
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
