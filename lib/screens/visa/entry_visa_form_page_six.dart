@@ -1,5 +1,6 @@
 import 'package:CeylonScape/controllers/visa_controller.dart';
 import 'package:CeylonScape/screens/main_page.dart';
+import 'package:CeylonScape/screens/recommendation/recommendation_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/theme/fonts.dart';
 import 'package:CeylonScape/widgets/button.dart';
@@ -199,7 +200,7 @@ Future<bool?> _showConfirmDialog(BuildContext context, VisaController visaContro
             onPressed: () {
               visaController.apply().then((value) {
                 if (value) {
-                  Get.offAll(() => const MainPage());
+                  Get.offAll(() => RecommendationScreen());
                   Get.snackbar(
                     icon: const Icon(
                       Icons.check_circle,

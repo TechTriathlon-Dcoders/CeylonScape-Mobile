@@ -57,7 +57,7 @@ class _ComponentsScreenState extends State<MainPage> {
       body: PageView(
         controller: _pageController,
         physics: const NeverScrollableScrollPhysics(),
-        children: const [
+        children: [
           HomePage(),
           HomePage(),
           HomePage(),

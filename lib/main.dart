@@ -1,12 +1,18 @@
 import 'package:CeylonScape/bindings/all_bindings.dart';
 import 'package:CeylonScape/controllers/screen_controller.dart';
 import 'package:CeylonScape/screens/splash_screen.dart';
+import 'package:CeylonScape/services/auth_service.dart';
 import 'package:CeylonScape/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize AuthService
+  final AuthService authService = Get.put(AuthService());
+  await authService.init();
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,

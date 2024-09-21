@@ -1,3 +1,4 @@
+import 'package:CeylonScape/controllers/visa_controller.dart';
 import 'package:CeylonScape/screens/visa/visa_menu_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/theme/fonts.dart';
@@ -6,11 +7,22 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class VisaGetStartedScreen extends StatelessWidget {
-  const VisaGetStartedScreen({super.key});
+  VisaGetStartedScreen({super.key});
+
+  final VisaController _visaController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.chevron_left),
+          onPressed: () => Get.back()),
+        title: const Text(''),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: CeylonScapeColor.black0,
+      ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -50,10 +62,13 @@ class VisaGetStartedScreen extends StatelessWidget {
             Button(
                 type: ButtonType.primaryColor,
                 buttonText: "Get Started",
-                onPressed: () => Get.to(
-                    VisaMenuScreen(),
-                  transition: Transition.rightToLeft
-                )),
+                onPressed: () {
+                  _visaController.isGetStartedScreenSeen.value = true;
+                  Get.to(
+                    const VisaMenuScreen(),
+                    transition: Transition.rightToLeft
+                  );
+                }),
             const SizedBox(height: 72,),
             SizedBox(
               width: 250,

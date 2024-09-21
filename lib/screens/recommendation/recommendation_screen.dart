@@ -1,20 +1,15 @@
-import 'package:CeylonScape/controllers/visa_old_controller.dart';
-import 'package:CeylonScape/screens/visa/entry_visa_form_page_five.dart';
-import 'package:CeylonScape/screens/visa/entry_visa_form_page_four.dart';
-import 'package:CeylonScape/screens/visa/entry_visa_form_page_one.dart';
-import 'package:CeylonScape/screens/visa/entry_visa_form_page_six.dart';
-import 'package:CeylonScape/screens/visa/entry_visa_form_page_three.dart';
-import 'package:CeylonScape/screens/visa/entry_visa_form_page_two.dart';
+import 'package:CeylonScape/screens/main_page.dart';
+import 'package:CeylonScape/screens/recommendation/recommendation_input_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
-import 'package:CeylonScape/widgets/card_dialog.dart';
+import 'package:CeylonScape/theme/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EntryVisaForm extends StatelessWidget {
-  EntryVisaForm({super.key});
+class RecommendationScreen extends StatelessWidget {
+  RecommendationScreen({super.key});
+
   final PageController _pageController = PageController(initialPage: 0);
   final ScrollController scrollController = ScrollController();
-  // final VisaController _visaController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +19,9 @@ class EntryVisaForm extends StatelessWidget {
         if (didPop) {
           return;
         }
-        // final NavigatorState navigator = Navigator.of(context);
         final bool? shouldPop = await _showBackDialog(context);
         if (shouldPop ?? false) {
-          Get.back();
-          // navigator.pop();
+          Get.offAll(() => const MainPage());
         }
       },
       child: Scaffold(
@@ -38,19 +31,31 @@ class EntryVisaForm extends StatelessWidget {
             onPressed: () async {
               final bool? shouldPop = await _showBackDialog(context);
               if (shouldPop ?? false) {
-                Get.back();
-                // navigator.pop();
+                Get.offAll(() => const MainPage());
               }
-              // showDialog(
-              //     context: context,
-              //     builder: (_) => const CardDialog()
-              // );
-              // Get.back();
-              // Navigator.pop(context);
-              // _visaController.reSetFormPage();
             },
           ),
-          title: const Text(''),
+          // title: const Text(''),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              TextButton(
+                onPressed: () {
+                  Get.offAll(() => const MainPage());
+                },
+                style: TextButton.styleFrom(
+                    overlayColor: Colors.transparent,
+                    padding: EdgeInsets.zero
+                ),
+                child: Text(
+                  'Skip',
+                  style: CeylonScapeFont.featureRegular.copyWith(
+                      color: CeylonScapeColor.primary50
+                  ),
+                ),
+              )
+            ],
+          ),
           centerTitle: true,
           elevation: 0,
           backgroundColor: CeylonScapeColor.black0,
@@ -62,12 +67,7 @@ class EntryVisaForm extends StatelessWidget {
           },
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            EntryVisaFormPageOne(pageController: _pageController,),
-            EntryVisaFormPageTwo(pageController: _pageController,),
-            EntryVisaFormPageThree(pageController: _pageController,),
-            EntryVisaFormPageFour(pageController: _pageController,),
-            EntryVisaFormPageFive(pageController: _pageController,),
-            EntryVisaFormPageSix(pageController: _pageController,),
+            RecommendationInputScreen(pageController: _pageController,),
           ],
         ),
       ),
@@ -98,7 +98,7 @@ Future<bool?> _showBackDialog(BuildContext context) {
             ),
             child: const Text('Leave'),
             onPressed: () {
-              Navigator.pop(context, true);
+              Get.offAll(() => const MainPage());
             },
           ),
         ],

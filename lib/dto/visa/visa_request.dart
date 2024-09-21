@@ -163,10 +163,10 @@ class VisaRequest {
     "fullName": fullName,
     "nationality": nationality,
     "gender": gender,
-    "dob": dateOfBirth,
+    "dob": "${dateOfBirth}T00:00:00Z",
     "birthCountry": birthCountry,
     "birthPlace": birthPlace,
-    "height": height,
+    "height": int.parse(height),
     "peculiarity": peculiarity,
     "domicileAddress": domicileCountryAddress,
     "addressDuringSriLanka": sriLankanAddress,
@@ -189,13 +189,13 @@ class VisaRequest {
         "contact": emergencyContactContactNumber,
         "relationship": emergencyContactRelationship,
         "nameOfCreditCard": emergencyContactNameOfCreditCard,
-        "spendableAmount": emergencyContactSpendableAmount,
-        "usdAmount" : emergencyContactBelongingMoneyAmount,
+        "spendableAmount": double.parse(emergencyContactSpendableAmount),
+        "usdAmount" : double.parse(emergencyContactBelongingMoneyAmount),
         "support" : urgeSupportReason
       }
     ],
     "naturalizationInfo": {
-      "naturalizationDate": dateOfNaturalized,
+      "naturalizationDate": "${dateOfNaturalized}T00:00:00Z",
       "placeOfNaturalization": placeOfNaturalized,
       "formerNationality": formerNationality
     },
@@ -204,30 +204,30 @@ class VisaRequest {
       "nationality": spouseNationality,
       "postalAddress": spousePostalAddress,
       "passportNumber": spousePassportNumber,
-      "dateOfExpiry": spouseDateOfPassportExpiry
+      "dateOfExpiry": "${spouseDateOfPassportExpiry}T00:00:00Z"
     },
     "passport": {
       "number": passportNumber,
       "placeOfIssue": placeOfPassportIssue,
-      "dateOfIssue": dateOfPassportIssue,
-      "dateOfExpiry": dateOfPassportExpiry,
+      "dateOfIssue": "${dateOfPassportIssue}T00:00:00Z",
+      "dateOfExpiry": "${dateOfPassportExpiry}T00:00:00Z",
       "previousNumber": previousPassportNumber,
       "previousPlaceOfIssue": placeOfPreviousPassportIssue,
-      "previousDateOfIssue": dateOfPreviousPassportIssue,
-      "previousDateOfExpiry" : dateOfPreviousPassportExpiry
+      "previousDateOfIssue": "${dateOfPreviousPassportIssue}T00:00:00Z",
+      "previousDateOfExpiry" : "${dateOfPreviousPassportExpiry}T00:00:00Z"
     },
     "entryVisas": [
       {
         "objectOfVisit": "Tourism",
         "modeOfTravel": routeAndModeOfTravel,
-        "dateOfLeaving": dateOfLeaving,
+        "dateOfLeaving": "${dateOfLeaving}T00:00:00Z",
         "lastPlaceOfResidence": lastPlaceOfResidence,
-        "dateOfIssue": lastObtainedVisaDateOfIssue,
+        "dateOfIssue": "${lastObtainedVisaDateOfIssue}T00:00:00Z",
         "residenceVisaNumber": lastObtainedVisaResidenceVisaNumber,
         "hasRefusedVisa": refusedVisaReason,
         "userInfoId": 1,
-        "periodOfValidity": lastObtainedVisaPeriodOfValidity,
-        "PeriodOfVisitVisa": periodForVisitVisa,
+        "periodOfValidity": int.parse(lastObtainedVisaPeriodOfValidity),
+        "PeriodOfVisitVisa": int.parse(periodForVisitVisa),
         "lastObtainedVisa": lastObtainedVisaType
       }
     ],

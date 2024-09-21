@@ -1,5 +1,6 @@
 import 'package:CeylonScape/controllers/screen_controller.dart';
 import 'package:CeylonScape/screens/signin_screen.dart';
+import 'package:CeylonScape/services/auth_service.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -19,6 +20,8 @@ class SplashScreen extends StatefulWidget {
 
 class SplashScreenState extends State<SplashScreen> {
   final ScreenController _screenController = Get.find();
+  final AuthService _authService = Get.find();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -29,7 +32,12 @@ class SplashScreenState extends State<SplashScreen> {
   _navigateToHome() async {
     await Future.delayed(const Duration(milliseconds: 2000), (){});
     _screenController.isSplashScreenSeen.value = true;
-    Get.to(() => SignInScreen(), duration: const Duration(milliseconds: 1000),transition: Transition.native);
+    if (_authService.isAuthenticated.value) {
+      Get.off(() => const MainPage(), duration: const Duration(milliseconds: 1000), transition: Transition.native);
+    } else {
+      Get.off(() => SignInScreen(), duration: const Duration(milliseconds: 1000), transition: Transition.native);
+    }
+    // Get.to(() => SignInScreen(), duration: const Duration(milliseconds: 1000),transition: Transition.native);
   }
 
   @override
