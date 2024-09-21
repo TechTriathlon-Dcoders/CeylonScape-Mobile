@@ -35,6 +35,10 @@ class AuthService extends GetxService {
     return (user != null) ? "${user!.value.firstName} ${user!.value.lastName}" : "";
   }
 
+  String getEmail(){
+    return (user != null) ? user!.value.email : "";
+  }
+
   String getMobileNumber(){
     return (user != null) ? user!.value.mobileNumber.replaceFirst('0', '+94') : "";
   }

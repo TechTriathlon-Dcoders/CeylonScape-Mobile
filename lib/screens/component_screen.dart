@@ -1,3 +1,4 @@
+import 'package:CeylonScape/screens/recommendation/recommendation_screen.dart';
 import 'package:CeylonScape/screens/signin_screen.dart';
 import 'package:CeylonScape/services/auth_service.dart';
 import 'package:CeylonScape/theme/colors.dart';
@@ -43,8 +44,16 @@ class ComponentScreen extends StatelessWidget {
               const CardDialog(),
               const SizedBox(height: 24),
               Button(
-                buttonText: "Auth Flow",
-                onPressed: () => _authService.forceLogout(),
+                buttonText: "Logout",
+                onPressed: () {
+                  _authService.forceLogout();
+                  Get.offAll(() => SignInScreen());
+                },
+              ),
+              const SizedBox(height: 24),
+              Button(
+                buttonText: "Recommendation Flow",
+                onPressed: () => Get.to(RecommendationScreen()),
               ),
             ],
           ),

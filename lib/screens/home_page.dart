@@ -1,23 +1,35 @@
 import 'dart:async';
+import 'package:CeylonScape/controllers/visa_controller.dart';
 import 'package:CeylonScape/screens/component_screen.dart';
 import 'package:CeylonScape/screens/visa/visa_get_started_screen.dart';
+import 'package:CeylonScape/screens/visa/visa_menu_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/theme/fonts.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 
 import '../widgets/search_bar.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
+  HomePage({super.key});
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
   TextEditingController searchController = TextEditingController();
+  final VisaController _visaController = Get.find();
+
+  // List<QuickAccessItem> quickAccessItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    print(_visaController.isGetStartedScreenSeen.value);
+  }
+
   List<SearchItem> items = [
     // SearchItem(label: 'Home', route: const ComponentScreen()),
     // SearchItem(label: 'Profile', route: const ComponentScreen()),
@@ -25,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   ];
   List<QuickAccessItem> quickAccessItems = [
     QuickAccessItem(label: 'Plan your Trip', icon: '1.svg', route: ComponentScreen()),
-    QuickAccessItem(label: 'Apply Visa', icon: '2.svg', route: const VisaGetStartedScreen()),
+    QuickAccessItem(label: 'Apply Visa', icon: '2.svg', route: VisaGetStartedScreen()),
     QuickAccessItem(label: 'Book by Train/Bus', icon: '3.svg', route: ComponentScreen()),
     QuickAccessItem(label: 'Chat with AI Assistant', icon: '4.svg', route: ComponentScreen()),
   ];
@@ -190,10 +202,20 @@ class _HomePageState extends State<HomePage> {
                   children: quickAccessItems.map((item) =>
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => item.route),
-                          );
+                          if (item.label == 'Apply Visa') {
+                            Get.to(
+                              _visaController.isGetStartedScreenSeen.value
+                                  ? const VisaMenuScreen()
+                                  : VisaGetStartedScreen(),
+                            );
+                          } else {
+                            // For other items, navigate to the predefined route
+                            Get.to(item.route);
+                          }
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(builder: (context) => item.route),
+                          // );
                         },
                         child: Column(
                               children: [

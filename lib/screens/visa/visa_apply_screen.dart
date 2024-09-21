@@ -46,6 +46,15 @@ class VisaApplyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.chevron_left),
+            onPressed: () => Get.back()),
+        title: const Text(''),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: CeylonScapeColor.black0,
+      ),
       body: Container(
         // padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -71,7 +80,7 @@ class VisaApplyScreen extends StatelessWidget {
                   )
               ),
             ),
-            const SizedBox(height: 0,),
+            const SizedBox(height: 32,),
 
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 24),

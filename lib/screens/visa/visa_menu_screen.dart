@@ -1,3 +1,4 @@
+import 'package:CeylonScape/screens/visa/check_visa_status_screen.dart';
 import 'package:CeylonScape/screens/visa/visa_apply_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/theme/fonts.dart';
@@ -19,7 +20,7 @@ class VisaMenuScreen extends StatelessWidget {
     VisaMenuItem(
         label: 'Check Visa \nStatus',
         icon: 'visa-menu-2.svg',
-        route: VisaApplyScreen()
+        route: CheckVisaStatusScreen()
     ),
     VisaMenuItem(
         label: 'Visa \nInformation',
@@ -36,6 +37,15 @@ class VisaMenuScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            icon: const Icon(Icons.chevron_left),
+            onPressed: () => Get.back()),
+        title: const Text(''),
+        centerTitle: true,
+        elevation: 0,
+        backgroundColor: CeylonScapeColor.black0,
+      ),
       body: Container(
         // padding: const EdgeInsets.symmetric(horizontal: 24),
         child: Column(
@@ -67,7 +77,7 @@ class VisaMenuScreen extends StatelessWidget {
                   )
               ),
             ),
-            const SizedBox(height: 0,),
+            const SizedBox(height: 32,),
 
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 24),

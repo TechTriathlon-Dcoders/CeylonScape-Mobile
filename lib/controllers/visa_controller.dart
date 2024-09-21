@@ -1,11 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:CeylonScape/dto/visa/recommendation_request.dart';
 import 'package:CeylonScape/dto/visa/visa_request.dart';
+import 'package:CeylonScape/dto/visa/visa_response.dart';
 import 'package:CeylonScape/services/api_service.dart';
 import 'package:CeylonScape/services/auth_service.dart';
+import 'package:CeylonScape/services/visa_service.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/util/functions.dart';
+import 'package:CeylonScape/util/static_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -13,6 +17,7 @@ import 'package:image_picker/image_picker.dart';
 class VisaController extends GetxController {
   final ApiService _apiService = ApiService();
   final AuthService _authService = Get.find();
+  final VisaService _visaService = Get.find();
   final TextEditingController pictureController = TextEditingController();
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController nationalityController = TextEditingController();
@@ -79,6 +84,7 @@ class VisaController extends GetxController {
     }
   }
 
+  RxBool isGetStartedScreenSeen = false.obs;
   final RxBool hasAttemptedApplyVisa = false.obs;
   final RxBool hasAttemptNextInFirstPage = false.obs;
   final RxBool hasAttemptNextInSecondPage = false.obs;
@@ -86,6 +92,8 @@ class VisaController extends GetxController {
   final RxBool hasAttemptNextInFourthPage = false.obs;
   final RxBool hasAttemptNextInFifthPage = false.obs;
   final RxBool hasAttemptNextInSixthPage = false.obs;
+  final RxInt activeVisaApplyStatus = 1.obs;
+  final RxInt visaApplicationStatus = 0.obs;
 
   RxString pictureHintMessage = ''.obs;
   RxString fullNameHintMessage = ''.obs;
@@ -137,12 +145,64 @@ class VisaController extends GetxController {
   RxString emergencyContactContactNumberHintMessage = ''.obs;
   RxString emergencyContactRelationshipHintMessage = ''.obs;
 
+  late RxList<Map<String, bool>> preferredActivities;
+  late RxList<Map<String, bool>> preferredBucketList;
+
+  @override
+  void onInit() {
+    super.onInit();
+    preferredActivities = activityNames
+        .map((activity) => {activity: false})
+        .toList()
+        .obs;
+    preferredBucketList = bucketListNames
+        .map((activity) => {activity: false})
+        .toList()
+        .obs;
+  }
+
+  // Method to get checked activities
+  List<String> getCheckedActivities() {
+    return preferredActivities
+        .where((activityMap) => activityMap.values.first)
+        .map((activityMap) => activityMap.keys.first)
+        .toList();
+  }
+
+  // Method to get checked bucket list items
+  List<String> getCheckedBucketList() {
+    return preferredBucketList
+        .where((bucketMap) => bucketMap.values.first)
+        .map((bucketMap) => bucketMap.keys.first)
+        .toList();
+  }
+
+  void setPreferredActivity(String itemName, bool isChecked) {
+    int index = preferredActivities.indexWhere((element) => element.containsKey(itemName));
+    if (index != -1) {
+      preferredActivities[index][itemName] = isChecked;
+      preferredActivities.refresh(); // To notify listeners if needed
+    }
+  }
+
+  void setBucketList(String itemName, bool isChecked) {
+    int index = preferredBucketList.indexWhere((element) => element.containsKey(itemName));
+    if (index != -1) {
+      preferredBucketList[index][itemName] = isChecked;
+      preferredBucketList.refresh(); // To notify listeners if needed
+    }
+  }
+
   bool validateSignInForm(){
     return true;
   }
 
   bool isCivilStatusMarried() {
     return civilStatusController.text == 'Married';
+  }
+
+  void setActiveVisaStatus(int value) {
+    activeVisaApplyStatus.value = value;
   }
 
   void clearImage() {
@@ -366,6 +426,7 @@ class VisaController extends GetxController {
         urgeSupportReason: urgeSupportReasonController.text,
     );
     try {
+      print(dateOfPassportIssueController.text);
       final response = await _apiService.sendPostRequest(
         true, // Authentication is not required for login
         'UserInfo',
@@ -376,7 +437,10 @@ class VisaController extends GetxController {
         return false;
       }
 
-      if (response.statusCode != 200) {
+      print(response.statusCode);
+      print(response.body);
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
         return false;
       }
 
@@ -388,7 +452,65 @@ class VisaController extends GetxController {
           backgroundColor: CeylonScapeColor.black0,
         );
       }
+      // Assuming the response contains authentication-related data
+      print(response.body);
+      VisaResponse visaResponse = VisaResponse.fromJson(response.body);
+      await _visaService.setUserInfo(visaResponse);
       return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> applyRecommendations() async {
+    // hasAttemptedApplyVisa.value = false;
+
+    RecommendationRequest applyRecommendationRequest = RecommendationRequest(
+      visaApplicationID: _visaService.getVisaApplicationID(),
+      // visaApplicationID: 2,
+      fullName: _visaService.getFullName(),
+      // fullName: '',
+      email: _visaService.getEmail(),
+      // email: '',
+      activities: getCheckedActivities(),
+      bucketList: getCheckedBucketList(),
+    );
+    try {
+      final response = await _apiService.sendPostRequest(
+        true, // Authentication is not required for login
+        'api/activities',
+        data: applyRecommendationRequest.toJsonActivitiesOnly(),
+      );
+
+      if (response == null) {
+        return false;
+      }
+
+      if (response.statusCode != 200) {
+        return false;
+      }
+
+      try {
+        final response = await _apiService.sendPostRequest(
+          true, // Authentication is not required for login
+          'api/BucketListItems',
+          data: applyRecommendationRequest.toJsonBucketListOnly(),
+        );
+
+        if (response == null) {
+          return false;
+        }
+
+        if (response.statusCode != 200) {
+          return false;
+        }
+        return true;
+      } catch (e) {
+        return false;
+      }
+      // Assuming the response contains authentication-related data
+      // VisaResponse visaResponse = VisaResponse.fromJson(response.body);
+      // await _visaService.setUserInfo(visaResponse);
     } catch (e) {
       return false;
     }

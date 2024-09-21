@@ -1,2 +1,2 @@
 // API related data
-const baseUrl = "http://192.168.1.4:5000/";
+const baseUrl = "http://163.68.81.165/";
