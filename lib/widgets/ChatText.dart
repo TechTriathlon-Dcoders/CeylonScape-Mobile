@@ -1,4 +1,5 @@
 import 'package:CeylonScape/theme/colors.dart';
+import 'package:CeylonScape/theme/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -7,9 +8,8 @@ enum ChatTextType { send, receive}
 class ChatText extends StatelessWidget {
   final ChatTextType type;
   final String text;
-  final DateTime dateTime;
 
-  const ChatText({super.key, required this.type, required this.text, required this.dateTime});
+  const ChatText({super.key, required this.type, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +17,14 @@ class ChatText extends StatelessWidget {
       mainAxisAlignment: (type == ChatTextType.send) ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
         Container(
-          constraints: const BoxConstraints(maxWidth: 246.0),
+          constraints: (type == ChatTextType.send) ? const BoxConstraints(maxWidth: 290.0) : const BoxConstraints(maxWidth: 360.0),
           decoration: BoxDecoration(
-            color: type == ChatTextType.receive ? CeylonScapeColor.black0 : CeylonScapeColor.primary,
+            color: type == ChatTextType.receive ? Colors.transparent : CeylonScapeColor.black5,
             borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(15),
-              topRight: const Radius.circular(15),
-              bottomRight: type == ChatTextType.receive ? const Radius.circular(15) : const Radius.circular(0),
-              bottomLeft: type == ChatTextType.receive ? const Radius.circular(0) : const Radius.circular(15),
+              topLeft: const Radius.circular(16),
+              topRight: const Radius.circular(16),
+              bottomRight: type == ChatTextType.receive ? const Radius.circular(16) : const Radius.circular(0),
+              bottomLeft: type == ChatTextType.receive ? const Radius.circular(0) : const Radius.circular(16),
             ),
             boxShadow: const [
               BoxShadow(
@@ -36,32 +36,15 @@ class ChatText extends StatelessWidget {
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.only(
-              top: 16,
-              right: 10,
-              bottom: 8,
-              left: 10,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             child: Column(
               crossAxisAlignment: type == ChatTextType.receive ? CrossAxisAlignment.start : CrossAxisAlignment.end,
               children: [
                 Text(
                   text,
-                  style: TextStyle(
-                    color: type == ChatTextType.receive ? CeylonScapeColor.black : CeylonScapeColor.black0,
-                    fontSize: 14,
-                  ),
+                  style: CeylonScapeFont.highlightEmphasis,
+                  softWrap: true,
                 ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Text(
-                  DateFormat('HH:mm a').format(dateTime).toLowerCase(),
-                  style: TextStyle(
-                    color: type == ChatTextType.receive ? CeylonScapeColor.black.withOpacity(0.75) : CeylonScapeColor.black0,
-                    fontSize: 10,
-                  ),
-                )
               ],
             ),
           ),

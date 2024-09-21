@@ -22,16 +22,14 @@ class ChatWidgetScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ChatText(
+            const ChatText(
               type: ChatTextType.receive,
               text: 'Hi, How can I help you?',
-              dateTime: DateTime.now(),
             ),
             const SizedBox(height: 24),
-            ChatText(
+            const ChatText(
               type: ChatTextType.send,
               text: 'I need assistance on how to activate this package',
-              dateTime: DateTime.now(),
             ),
             const SizedBox(height: 24),
             Divider(

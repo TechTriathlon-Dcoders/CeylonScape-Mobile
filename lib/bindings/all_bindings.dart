@@ -1,3 +1,4 @@
+import 'package:CeylonScape/controllers/chat_controller.dart';
 import 'package:CeylonScape/controllers/signin_controller.dart';
 import 'package:CeylonScape/controllers/signup_controller.dart';
 import 'package:CeylonScape/controllers/visa_controller.dart';
@@ -13,7 +14,7 @@ class AllBindings implements Bindings{
     Get.put<VisaService>(VisaService());
     Get.put<SignInController>(SignInController());
     Get.put<SignUpController>(SignUpController());
-    Get.put<VisaOldController>(VisaOldController());
     Get.put<VisaController>(VisaController());
+    Get.put<ChatController>(ChatController());
   }
 }
