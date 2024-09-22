@@ -65,6 +65,10 @@ dependencies:
   easy_stepper: ^0.8.5+1
   enhance_stepper: ^1.0.1
   another_stepper: ^1.2.2
+  ticket_widget: ^1.0.2
+  dotted_line: ^3.2.2
+  permission_handler: ^11.3.1
+  share_plus: ^10.0.2
 
 dev_dependencies:
   flutter_test:
