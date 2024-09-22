@@ -9,6 +9,7 @@ class CustomCard extends StatelessWidget {
   final bool showShadow;
   final BoxBorder? border;
   final double borderRadius;
+  final Color backgroundColor;
 
   const CustomCard({
     super.key,
@@ -17,6 +18,7 @@ class CustomCard extends StatelessWidget {
     this.border,
     this.borderRadius = 20,
     this.showShadow = true,
+    this.backgroundColor = CeylonScapeColor.black0
   });
 
   @override
@@ -39,7 +41,7 @@ class CustomCard extends StatelessWidget {
                   spreadRadius: 0,
                 ),
         ],
-        color: CeylonScapeColor.black0,
+        color: backgroundColor,
         // gradient: LinearGradient(
         //   colors: type == CardType.light || type == CardType.addon || type == CardType.datapackage || type == CardType.voicepackage || type == CardType.extragb1
         //       ? CeylonScapeColor.lightGradient
