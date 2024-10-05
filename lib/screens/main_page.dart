@@ -1,6 +1,7 @@
 import 'package:CeylonScape/screens/ai_page.dart';
 import 'package:CeylonScape/screens/home_page.dart';
 import 'package:CeylonScape/screens/profile_page.dart';
+import 'package:CeylonScape/screens/travel_page.dart';
 import 'package:CeylonScape/services/auth_service.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/theme/fonts.dart';
@@ -72,7 +73,8 @@ class _ComponentsScreenState extends State<MainPage> {
         children: [
           HomePage(),
           AIPage(),
-          HomePage(),
+          TravelPage(),
+          // HomePage(),
           ProfilePage(),
           // HomePage(),
         ],
