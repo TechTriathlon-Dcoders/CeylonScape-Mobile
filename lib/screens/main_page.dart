@@ -1,4 +1,5 @@
 import 'package:CeylonScape/screens/home_page.dart';
+import 'package:CeylonScape/screens/profile_page.dart';
 import 'package:CeylonScape/services/auth_service.dart';
 import 'package:CeylonScape/theme/colors.dart';
 import 'package:CeylonScape/theme/fonts.dart';
@@ -71,7 +72,8 @@ class _ComponentsScreenState extends State<MainPage> {
           HomePage(),
           HomePage(),
           HomePage(),
-          HomePage(),
+          ProfilePage(),
+          // HomePage(),
         ],
       ),
       bottomNavigationBar: SafeArea(

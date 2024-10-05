@@ -122,171 +122,172 @@ class AvailableTransportScreen extends StatelessWidget {
                     numberOfSheets: entry.value.numberOfSheets,
                     price: entry.value.price)
               ).toList(),
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: CeylonScapeColor.primary20.withOpacity(0.8),
-                      blurRadius: 10,
-                      offset: const Offset(0, 3),
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
-                child: Material(
-                  color: CeylonScapeColor.black5,
-                  borderRadius: BorderRadius.circular(16),
-                  child: InkWell(
-                    onTap: () {
-
-                    },
-                    borderRadius: BorderRadius.circular(16),
-                    highlightColor: CeylonScapeColor.primary5,
-                    splashColor: CeylonScapeColor.primary5,
-                    child: Container(
-                      padding: EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                height: 40,
-                                width: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(40),
-                                  color: CeylonScapeColor.black10
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'B',
-                                    style: CeylonScapeFont.headingLarger.copyWith(
-                                      color: CeylonScapeColor.primary50
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 8,),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Home Travels',
-                                    style: CeylonScapeFont.featureEmphasis,
-                                  ),
-                                  Text(
-                                    'Motor coach',
-                                    style: CeylonScapeFont.captionRegular.copyWith(
-                                        color: CeylonScapeColor.black40
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const Spacer(),
-                              Text(
-                                '04h 30m',
-                                style: CeylonScapeFont.featureEmphasis.copyWith(
-                                  color: CeylonScapeColor.primary60
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(height: 16,),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      '06:00AM',
-                                      style: CeylonScapeFont.highlightAccent,
-                                    ),
-                                    Text(
-                                      'Colombo',
-                                      style: CeylonScapeFont.contentRegular,
-                                    )
-                                  ],
-                                ),
-
-                                Text(
-                                  '----->',
-                                  style: CeylonScapeFont.contentAccent.copyWith(
-                                      color: CeylonScapeColor.black50
-                                  ),
-                                ),
-
-                                Column(
-                                  children: [
-                                    Text(
-                                      '10:30AM',
-                                      style: CeylonScapeFont.highlightAccent,
-                                    ),
-                                    Text(
-                                      'Ella',
-                                      style: CeylonScapeFont.contentRegular,
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 8,),
-                          const Divider(color: CeylonScapeColor.black20,),
-                          const SizedBox(height: 8,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/icons/star.svg',
-                                    height: 18,
-                                    width: 18,
-                                    fit: BoxFit.none,
-                                  ),
-                                  const SizedBox(width: 3,),
-                                  Text(
-                                    '4.5',
-                                    style: CeylonScapeFont.highlightEmphasis.copyWith(
-                                      color: CeylonScapeColor.black70
-                                    ),
-                                  )
-                                ],
-                              ),
-
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.person_2_outlined,
-                                    color: CeylonScapeColor.black70,
-                                  ),
-                                  const SizedBox(width: 3,),
-                                  Text(
-                                    '48',
-                                    style: CeylonScapeFont.highlightEmphasis.copyWith(
-                                        color: CeylonScapeColor.black70
-                                    ),
-                                  )
-                                ],
-                              ),
-
-                              Text(
-                                '\$10',
-                                style: CeylonScapeFont.highlightEmphasis.copyWith(
-                                    color: CeylonScapeColor.black70
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              )
+              // Container(
+              //   decoration: BoxDecoration(
+              //     borderRadius: BorderRadius.circular(16),
+              //     boxShadow: [
+              //       BoxShadow(
+              //         color: CeylonScapeColor.primary20.withOpacity(0.8),
+              //         blurRadius: 10,
+              //         offset: const Offset(0, 3),
+              //         spreadRadius: 0,
+              //       ),
+              //     ],
+              //   ),
+              //   child: Material(
+              //     color: CeylonScapeColor.black5,
+              //     borderRadius: BorderRadius.circular(16),
+              //     child: InkWell(
+              //       onTap: () {
+              //
+              //       },
+              //       borderRadius: BorderRadius.circular(16),
+              //       highlightColor: CeylonScapeColor.primary5,
+              //       splashColor: CeylonScapeColor.primary5,
+              //       child: Container(
+              //         padding: EdgeInsets.all(16),
+              //         child: Column(
+              //           children: [
+              //             Row(
+              //               crossAxisAlignment: CrossAxisAlignment.start,
+              //               children: [
+              //                 Container(
+              //                   height: 40,
+              //                   width: 40,
+              //                   decoration: BoxDecoration(
+              //                     borderRadius: BorderRadius.circular(40),
+              //                     color: CeylonScapeColor.black10
+              //                   ),
+              //                   child: Center(
+              //                     child: Text(
+              //                       'B',
+              //                       style: CeylonScapeFont.headingLarger.copyWith(
+              //                         color: CeylonScapeColor.primary50
+              //                       ),
+              //                     ),
+              //                   ),
+              //                 ),
+              //                 const SizedBox(width: 8,),
+              //                 Column(
+              //                   crossAxisAlignment: CrossAxisAlignment.start,
+              //                   children: [
+              //                     Text(
+              //                       'Home Travels',
+              //                       style: CeylonScapeFont.featureEmphasis,
+              //                     ),
+              //                     Text(
+              //                       'Motor coach',
+              //                       style: CeylonScapeFont.captionRegular.copyWith(
+              //                           color: CeylonScapeColor.black40
+              //                       ),
+              //                     )
+              //                   ],
+              //                 ),
+              //                 const Spacer(),
+              //                 Text(
+              //                   '04h 30m',
+              //                   style: CeylonScapeFont.featureEmphasis.copyWith(
+              //                     color: CeylonScapeColor.primary60
+              //                   ),
+              //                 )
+              //               ],
+              //             ),
+              //             const SizedBox(height: 16,),
+              //             Padding(
+              //               padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              //               child: Row(
+              //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //                 children: [
+              //                   Column(
+              //                     children: [
+              //                       Text(
+              //                         '06:00AM',
+              //                         style: CeylonScapeFont.highlightAccent,
+              //                       ),
+              //                       Text(
+              //                         'Colombo',
+              //                         style: CeylonScapeFont.contentRegular,
+              //                       )
+              //                     ],
+              //                   ),
+              //
+              //                   Text(
+              //                     '----->',
+              //                     style: CeylonScapeFont.contentAccent.copyWith(
+              //                         color: CeylonScapeColor.black50
+              //                     ),
+              //                   ),
+              //
+              //                   Column(
+              //                     children: [
+              //                       Text(
+              //                         '10:30AM',
+              //                         style: CeylonScapeFont.highlightAccent,
+              //                       ),
+              //                       Text(
+              //                         'Ella',
+              //                         style: CeylonScapeFont.contentRegular,
+              //                       )
+              //                     ],
+              //                   ),
+              //                 ],
+              //               ),
+              //             ),
+              //             const SizedBox(height: 8,),
+              //             const Divider(color: CeylonScapeColor.black20,),
+              //             const SizedBox(height: 8,),
+              //             Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //               children: [
+              //                 Row(
+              //                   children: [
+              //                     SvgPicture.asset(
+              //                       'assets/icons/star.svg',
+              //                       height: 18,
+              //                       width: 18,
+              //                       fit: BoxFit.none,
+              //                     ),
+              //                     const SizedBox(width: 3,),
+              //                     Text(
+              //                       '4.5',
+              //                       style: CeylonScapeFont.highlightEmphasis.copyWith(
+              //                         color: CeylonScapeColor.black70
+              //                       ),
+              //                     )
+              //                   ],
+              //                 ),
+              //
+              //                 Row(
+              //                   children: [
+              //                     Icon(
+              //                       Icons.person_2_outlined,
+              //                       color: CeylonScapeColor.black70,
+              //                     ),
+              //                     const SizedBox(width: 3,),
+              //                     Text(
+              //                       '48',
+              //                       style: CeylonScapeFont.highlightEmphasis.copyWith(
+              //                           color: CeylonScapeColor.black70
+              //                       ),
+              //                     )
+              //                   ],
+              //                 ),
+              //
+              //                 Text(
+              //                   '\$10',
+              //                   style: CeylonScapeFont.highlightEmphasis.copyWith(
+              //                       color: CeylonScapeColor.black70
+              //                   ),
+              //                 )
+              //               ],
+              //             )
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //   ),
+              // )
+              const SizedBox(height: 24,),
             ],
           ),
         ),

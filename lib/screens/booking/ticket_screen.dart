@@ -83,10 +83,11 @@ class TicketScreen extends StatelessWidget {
                         type: ButtonType.primaryColor,
                         buttonText: "Download E-Ticket",
                         onPressed: () {
-                          Get.offAll(
-                              const MainPage(),
-                              transition: Transition.rightToLeft
-                          );
+                          // Get.offAll(
+                          //     const MainPage(),
+                          //     transition: Transition.rightToLeft
+                          // );
+                          Get.close(4);
                         }),
                   ],
                 ),
@@ -115,12 +116,15 @@ class TicketScreen extends StatelessWidget {
                     type: ButtonType.primaryColor,
                     buttonText: "Track",
                     onPressed: () {
-                      Get.offAll(
-                          const MainPage(),
-                          transition: Transition.rightToLeft
-                      );
+                      // Get.offAll(
+                      //     const MainPage(),
+                      //     transition: Transition.rightToLeft
+                      // );
+                      Get.close(4);
                     }),
               ),
+
+              const SizedBox(height: 24,),
             ],
           ),
         )

@@ -28,15 +28,18 @@ class AuthService extends GetxService {
   }
 
   int getUserId() {
-    return (user != null) ? user!.value.id : 0;
+    return (user != null) ? user!.value.id
+        : _prefs?.getInt('userId') ?? 0;
   }
 
   String getFullName(){
-    return (user != null) ? "${user!.value.firstName} ${user!.value.lastName}" : "";
+    return (user != null) ? "${user!.value.firstName} ${user!.value.lastName}"
+        : _prefs?.getString('fullName') ?? "";
   }
 
   String getEmail(){
-    return (user != null) ? user!.value.email : "";
+    return (user != null) ? user!.value.email
+        : _prefs?.getString('email') ?? "";
   }
 
   String getMobileNumber(){
@@ -50,6 +53,14 @@ class AuthService extends GetxService {
   void updateBearerToken(String newToken) {
     _bearerToken = newToken;
     _prefs?.setString('bearerToken', newToken);
+  }
+
+  void updateUserFullName(String firstName, String lastName){
+    _prefs?.setString('fullName', '$firstName $lastName');
+  }
+
+  void updateUserId(int id){
+    _prefs?.setInt('userId', id);
   }
 
   void setUserEmail(String newEmail) {
@@ -66,6 +77,8 @@ class AuthService extends GetxService {
       mobileNumber: loginResponse.mobileNumber,
       password: "",
     ).obs;
+    updateUserFullName(loginResponse.firstName, loginResponse.lastName);
+    updateUserId(loginResponse.id);
     updateBearerToken(loginResponse.jwtToken);
   }
 

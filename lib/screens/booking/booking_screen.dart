@@ -230,7 +230,9 @@ class BookingScreen extends StatelessWidget {
                         AvailableTransportScreen(),
                         transition: Transition.rightToLeft
                     );
-                  })
+                  }),
+
+              const SizedBox(height: 24,),
             ],
           ),
         ),

@@ -274,7 +274,7 @@ class SeatBookingScreen extends StatelessWidget {
                   //       );
                   //     }),
 
-                  const SizedBox(height: 64,),
+                  const SizedBox(height: 54,),
                 ],
               ),
             ),
