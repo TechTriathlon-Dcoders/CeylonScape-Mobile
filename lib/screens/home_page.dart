@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
         time: '4h ago'
     ),
   ];
-  List<String> tags = ['Adventure ', 'Cultural', 'Beach', 'Mountain', 'Historical', 'Wildlife', 'Hike'];
+  List<String> tags = ['Adventure', 'Cultural', 'Beach', 'Mountain', 'Historical', 'Wildlife', 'Hike'];
 
   @override
   Widget build(BuildContext context) {
