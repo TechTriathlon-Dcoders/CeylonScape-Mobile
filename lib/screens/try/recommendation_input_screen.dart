@@ -413,7 +413,7 @@ Future<bool?> _showConfirmDialog(BuildContext context, VisaController visaContro
             child: const Text('Submit'),
             onPressed: () {
               visaController.applyRecommendationsOnly().then((value) {
-                if (value) {
+                // if (value) {
                   Get.close(2);
                   Get.snackbar(
                     icon: const Icon(
@@ -435,7 +435,7 @@ Future<bool?> _showConfirmDialog(BuildContext context, VisaController visaContro
                       )
                     ]
                   );
-                }
+                // }
               }
               );
             },
