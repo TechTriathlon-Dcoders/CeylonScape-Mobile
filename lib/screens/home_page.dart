@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:CeylonScape/controllers/attraction_controller.dart';
 import 'package:CeylonScape/controllers/visa_controller.dart';
 import 'package:CeylonScape/screens/ai/chat_screen.dart';
 import 'package:CeylonScape/screens/booking/booking_screen.dart';
@@ -25,6 +26,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController searchController = TextEditingController();
   final VisaController _visaController = Get.find();
+  final AttractionsController _attractionsController = Get.find();
 
   // List<QuickAccessItem> quickAccessItems = [];
 
@@ -76,7 +78,7 @@ class _HomePageState extends State<HomePage> {
         time: '4h ago'
     ),
   ];
-  List<String> tags = ['Adventure ', 'Cultural', 'Beach', 'Mountain'];
+  List<String> tags = ['Adventure ', 'Cultural', 'Beach', 'Mountain', 'Historical', 'Wildlife', 'Hike'];
 
   @override
   Widget build(BuildContext context) {
@@ -258,92 +260,168 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 20),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    const SizedBox(width: 24),
-                    ...tags.map((tag) => Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          border: Border.all(
-                              width: 1,
-                              color: CeylonScapeColor.black40
-                          )
-                      ),
-                      child: Text(
-                        tag,
-                        style: CeylonScapeFont.contentRegular,
-                      ),
-                    )).toList()
-                    .expand((widget) => [widget, const SizedBox(width: 8)])
-                    .toList()
-                  ],
+                child: Obx(() {
+                    return Row(
+                      children: [
+                        const SizedBox(width: 24),
+                        ...tags.asMap().entries.map((entry) => GestureDetector(
+                          onTap: () {
+                            _attractionsController.updateSelectedTag(entry.value);
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                            decoration: BoxDecoration(
+                                color: _attractionsController.selectedTag.value == entry.value
+                                ? CeylonScapeColor.primary50 : CeylonScapeColor.black0,
+                                borderRadius: BorderRadius.circular(50),
+                                border: Border.all(
+                                    width: 1,
+                                    color: _attractionsController.selectedTag.value == entry.value
+                                    ? CeylonScapeColor.black0 : CeylonScapeColor.black40
+                                )
+                            ),
+                            child: Text(
+                              entry.value,
+                              style: _attractionsController.selectedTag.value == entry.value
+                              ? CeylonScapeFont.contentRegular.copyWith(
+                                color: CeylonScapeColor.black0
+                              ) : CeylonScapeFont.contentRegular,
+                            ),
+                          ),
+                        )).toList()
+                        .expand((widget) => [widget, const SizedBox(width: 8)])
+                        .toList()
+                      ],
+                    );
+                  }
                 ),
               ),
               const SizedBox(height: 20),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    const SizedBox(width: 24),
-                    ...topAttractions.map((place) => Container(
-                      width: 200,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                            ClipRRect(
-                            borderRadius: BorderRadius.circular(16.0),
-                            child: Image.asset(
-                              'assets/images/${place.imagePath}',
-                              width: 200,
-                              height: 200,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          const SizedBox(height: 17,),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                child: Obx(() {
+                    return Row(
+                      children: [
+                        const SizedBox(width: 24),
+
+                        ..._attractionsController.filteredAttractions.map((place) => Container(
+                          width: 200,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                place.location,
-                                style: CeylonScapeFont.highlightAccent,
+                                ClipRRect(
+                                borderRadius: BorderRadius.circular(16.0),
+                                child: Image.asset(
+                                  'assets/images/${place.imagePath}',
+                                  width: 200,
+                                  height: 200,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              const Spacer(),
-                              SvgPicture.asset(
-                                'assets/icons/star.svg',
-                                width: 19.06,
-                                height: 18,
+                              const SizedBox(height: 17,),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    place.location,
+                                    style: CeylonScapeFont.highlightAccent,
+                                  ),
+                                  const Spacer(),
+                                  SvgPicture.asset(
+                                    'assets/icons/star.svg',
+                                    width: 19.06,
+                                    height: 18,
+                                  ),
+                                  const SizedBox(width: 5,),
+                                  Text(
+                                    place.rating.toString(),
+                                    style: CeylonScapeFont.contentEmphasis.copyWith(
+                                        color: CeylonScapeColor.black80
+                                    ),
+                                  )
+                                ],
                               ),
-                              const SizedBox(width: 5,),
+                              const SizedBox(height: 8,),
                               Text(
-                                place.rating.toString(),
-                                style: CeylonScapeFont.contentEmphasis.copyWith(
-                                    color: CeylonScapeColor.black80
+                                place.type,
+                                style: CeylonScapeFont.captionRegular.copyWith(
+                                  color: CeylonScapeColor.black40
+                                ),
+                              ),
+                              const SizedBox(height: 8,),
+                              Text(
+                                'Duration : ${place.type}',
+                                style: CeylonScapeFont.captionRegular.copyWith(
+                                    color: CeylonScapeColor.black40
                                 ),
                               )
                             ],
                           ),
-                          const SizedBox(height: 8,),
-                          Text(
-                            place.type,
-                            style: CeylonScapeFont.captionRegular.copyWith(
-                              color: CeylonScapeColor.black40
-                            ),
-                          ),
-                          const SizedBox(height: 8,),
-                          Text(
-                            'Duration : ${place.type}',
-                            style: CeylonScapeFont.captionRegular.copyWith(
-                                color: CeylonScapeColor.black40
-                            ),
-                          )
-                        ],
-                      ),
-                    )).toList()
-                    .expand((widget) => [widget, const SizedBox(width: 20)])
-                    .toList(),
-                  ]
+                        )).toList()
+                        .expand((widget) => [widget, const SizedBox(width: 20)])
+                        .toList(),
+
+                        // ...topAttractions.map((place) => Container(
+                        //   width: 200,
+                        //   child: Column(
+                        //     crossAxisAlignment: CrossAxisAlignment.start,
+                        //     children: [
+                        //       ClipRRect(
+                        //         borderRadius: BorderRadius.circular(16.0),
+                        //         child: Image.asset(
+                        //           'assets/images/${place.imagePath}',
+                        //           width: 200,
+                        //           height: 200,
+                        //           fit: BoxFit.cover,
+                        //         ),
+                        //       ),
+                        //       const SizedBox(height: 17,),
+                        //       Row(
+                        //         crossAxisAlignment: CrossAxisAlignment.center,
+                        //         mainAxisAlignment: MainAxisAlignment.center,
+                        //         children: [
+                        //           Text(
+                        //             place.location,
+                        //             style: CeylonScapeFont.highlightAccent,
+                        //           ),
+                        //           const Spacer(),
+                        //           SvgPicture.asset(
+                        //             'assets/icons/star.svg',
+                        //             width: 19.06,
+                        //             height: 18,
+                        //           ),
+                        //           const SizedBox(width: 5,),
+                        //           Text(
+                        //             place.rating.toString(),
+                        //             style: CeylonScapeFont.contentEmphasis.copyWith(
+                        //                 color: CeylonScapeColor.black80
+                        //             ),
+                        //           )
+                        //         ],
+                        //       ),
+                        //       const SizedBox(height: 8,),
+                        //       Text(
+                        //         place.type,
+                        //         style: CeylonScapeFont.captionRegular.copyWith(
+                        //             color: CeylonScapeColor.black40
+                        //         ),
+                        //       ),
+                        //       const SizedBox(height: 8,),
+                        //       Text(
+                        //         'Duration : ${place.type}',
+                        //         style: CeylonScapeFont.captionRegular.copyWith(
+                        //             color: CeylonScapeColor.black40
+                        //         ),
+                        //       )
+                        //     ],
+                        //   ),
+                        // )).toList()
+                        //     .expand((widget) => [widget, const SizedBox(width: 20)])
+                        //     .toList(),
+                      ]
+                    );
+                  }
                 ),
               ),
 

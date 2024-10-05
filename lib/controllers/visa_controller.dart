@@ -529,8 +529,8 @@ class VisaController extends GetxController {
     try {
       final response = await _apiService.sendPostRequest(
         true, // Authentication is not required for login
-        'api/activities',
-        data: applyRecommendationRequest.toJsonActivitiesOnly(),
+        'Api/email',
+        data: applyRecommendationRequest.toJson(),
       );
 
       if (response == null) {
@@ -541,24 +541,25 @@ class VisaController extends GetxController {
         return false;
       }
 
-      try {
-        final response = await _apiService.sendPostRequest(
-          true, // Authentication is not required for login
-          'api/BucketListItems',
-          data: applyRecommendationRequest.toJsonBucketListOnly(),
-        );
-
-        if (response == null) {
-          return false;
-        }
-
-        if (response.statusCode != 200) {
-          return false;
-        }
-        return true;
-      } catch (e) {
-        return false;
-      }
+      // try {
+      //   final response = await _apiService.sendPostRequest(
+      //     true, // Authentication is not required for login
+      //     'api/BucketListItems',
+      //     data: applyRecommendationRequest.toJsonBucketListOnly(),
+      //   );
+      //
+      //   if (response == null) {
+      //     return false;
+      //   }
+      //
+      //   if (response.statusCode != 200) {
+      //     return false;
+      //   }
+      //   return true;
+      // } catch (e) {
+      //   return false;
+      // }
+      return true;
       // Assuming the response contains authentication-related data
       // VisaResponse visaResponse = VisaResponse.fromJson(response.body);
       // await _visaService.setUserInfo(visaResponse);
