@@ -19,10 +19,10 @@ class TryRecommendationRequest {
   );
 
   Map<String, dynamic> toJson() => {
-    "fullName": fullName,
+    "name": fullName,
     "email": email,
-    "activities": activities,
-    "bucketList": bucketList,
+    "preferred_activities": activities,
+    "bucket_list": bucketList,
   };
 
   Map<String, dynamic> toJsonActivitiesOnly() => {
