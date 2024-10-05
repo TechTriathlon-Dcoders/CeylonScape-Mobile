@@ -77,7 +77,7 @@ class _CSSearchBarState extends State<CSSearchBar> {
             onTapOutside: (event) {
               FocusManager.instance.primaryFocus?.unfocus();
             },
-            searchInputDecoration: InputDecoration(
+            searchInputDecoration: SearchInputDecoration(
               hintText: widget.placeholderText,
               // contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               prefixIcon: SvgPicture.asset(

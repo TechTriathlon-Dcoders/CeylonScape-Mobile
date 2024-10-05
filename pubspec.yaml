@@ -35,25 +35,25 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  google_fonts: ^5.1.0
+  google_fonts: ^6.2.1
   path: ^1.8.3
   path_provider: ^2.1.0
   get: ^4.6.5
   glassmorphism: ^3.0.0
   flutter_svg: ^1.1.6
   iconify_flutter: ^0.0.5
-  flutter_keyboard_visibility: ^5.4.1
+  flutter_keyboard_visibility: ^6.0.0
   solar_icons: ^0.0.5
   shared_preferences: ^2.2.0
   http: ^1.2.2
-  intl: ^0.18.1
+  intl: ^0.19.0
   flutter_animate: ^4.2.0+1
   getwidget: ^4.0.0
   curved_navigation_bar: ^1.0.3
   salomon_bottom_bar: ^3.3.2
   fluentui_system_icons: ^1.1.217
-  pinput: ^3.0.1
-  carousel_slider: ^4.2.1
+  pinput: ^5.0.0
+  carousel_slider: ^5.0.0
   dots_indicator: ^3.0.0
   percent_indicator: ^4.2.3
   iconsax: ^0.0.8
@@ -79,7 +79,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
