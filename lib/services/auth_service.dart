@@ -79,6 +79,7 @@ class AuthService extends GetxService {
     ).obs;
     updateUserFullName(loginResponse.firstName, loginResponse.lastName);
     updateUserId(loginResponse.id);
+    setUserEmail(loginResponse.email);
     updateBearerToken(loginResponse.jwtToken);
   }
 

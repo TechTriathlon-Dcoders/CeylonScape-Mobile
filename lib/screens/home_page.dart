@@ -3,6 +3,8 @@ import 'package:CeylonScape/controllers/visa_controller.dart';
 import 'package:CeylonScape/screens/ai/chat_screen.dart';
 import 'package:CeylonScape/screens/booking/booking_screen.dart';
 import 'package:CeylonScape/screens/component_screen.dart';
+import 'package:CeylonScape/screens/try/recommendation_screen.dart';
+import 'package:CeylonScape/screens/try/unimplemented_screen.dart';
 import 'package:CeylonScape/screens/visa/visa_get_started_screen.dart';
 import 'package:CeylonScape/screens/visa/visa_menu_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
@@ -33,12 +35,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<SearchItem> items = [
-    // SearchItem(label: 'Home', route: const ComponentScreen()),
-    // SearchItem(label: 'Profile', route: const ComponentScreen()),
-    // SearchItem(label: 'Settings', route: const ComponentScreen()),
+    SearchItem(label: 'Visa', route: VisaGetStartedScreen()),
+    SearchItem(label: 'Booking', route: BookingScreen()),
+    SearchItem(label: 'Help and support', route: ChatScreen()),
+    SearchItem(label: 'Travel recommendations', route: TryRecommendationScreen()),
   ];
   List<QuickAccessItem> quickAccessItems = [
-    QuickAccessItem(label: 'Plan your Trip', icon: '1.svg', route: ComponentScreen()),
+    QuickAccessItem(label: 'Plan your Trip', icon: '1.svg', route: UnImplementedScreen()),
     QuickAccessItem(label: 'Apply Visa', icon: '2.svg', route: VisaGetStartedScreen()),
     QuickAccessItem(label: 'Book by Train/Bus', icon: '3.svg', route: BookingScreen()),
     QuickAccessItem(label: 'Chat with AI Assistant', icon: '4.svg', route: ChatScreen()),
@@ -526,7 +529,8 @@ class _HomePageState extends State<HomePage> {
                   //   )
                   // ],
                 ),
-              )
+              ),
+              const SizedBox(height: 64),
             ],
           )),
     );

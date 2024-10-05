@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:CeylonScape/dto/try/recommendation.dart';
 import 'package:CeylonScape/dto/visa/recommendation_request.dart';
 import 'package:CeylonScape/dto/visa/visa_request.dart';
 import 'package:CeylonScape/dto/visa/visa_response.dart';
@@ -472,6 +473,56 @@ class VisaController extends GetxController {
       // fullName: '',
       email: _visaService.getEmail(),
       // email: '',
+      activities: getCheckedActivities(),
+      bucketList: getCheckedBucketList(),
+    );
+    try {
+      final response = await _apiService.sendPostRequest(
+        true, // Authentication is not required for login
+        'api/activities',
+        data: applyRecommendationRequest.toJsonActivitiesOnly(),
+      );
+
+      if (response == null) {
+        return false;
+      }
+
+      if (response.statusCode != 200) {
+        return false;
+      }
+
+      try {
+        final response = await _apiService.sendPostRequest(
+          true, // Authentication is not required for login
+          'api/BucketListItems',
+          data: applyRecommendationRequest.toJsonBucketListOnly(),
+        );
+
+        if (response == null) {
+          return false;
+        }
+
+        if (response.statusCode != 200) {
+          return false;
+        }
+        return true;
+      } catch (e) {
+        return false;
+      }
+      // Assuming the response contains authentication-related data
+      // VisaResponse visaResponse = VisaResponse.fromJson(response.body);
+      // await _visaService.setUserInfo(visaResponse);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<bool> applyRecommendationsOnly() async {
+    // hasAttemptedApplyVisa.value = false;
+
+    TryRecommendationRequest applyRecommendationRequest = TryRecommendationRequest(
+      fullName: _visaService.getFullName(),
+      email: _visaService.getEmail(),
       activities: getCheckedActivities(),
       bucketList: getCheckedBucketList(),
     );

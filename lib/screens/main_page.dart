@@ -1,3 +1,4 @@
+import 'package:CeylonScape/screens/ai_page.dart';
 import 'package:CeylonScape/screens/home_page.dart';
 import 'package:CeylonScape/screens/profile_page.dart';
 import 'package:CeylonScape/services/auth_service.dart';
@@ -70,7 +71,7 @@ class _ComponentsScreenState extends State<MainPage> {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           HomePage(),
-          HomePage(),
+          AIPage(),
           HomePage(),
           ProfilePage(),
           // HomePage(),

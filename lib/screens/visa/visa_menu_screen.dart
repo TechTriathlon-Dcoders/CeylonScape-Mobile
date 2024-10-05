@@ -1,3 +1,4 @@
+import 'package:CeylonScape/screens/try/unimplemented_screen.dart';
 import 'package:CeylonScape/screens/visa/check_visa_status_screen.dart';
 import 'package:CeylonScape/screens/visa/visa_apply_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
@@ -25,12 +26,12 @@ class VisaMenuScreen extends StatelessWidget {
     VisaMenuItem(
         label: 'Visa \nInformation',
         icon: 'visa-menu-3.svg',
-        route: VisaApplyScreen()
+        route: UnImplementedScreen()
     ),
     VisaMenuItem(
         label: 'Help and \nSupport',
         icon: 'visa-menu-4.svg',
-        route: VisaApplyScreen()
+        route: UnImplementedScreen()
     ),
   ];
 

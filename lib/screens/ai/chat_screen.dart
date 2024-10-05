@@ -62,7 +62,8 @@ class ChatScreen extends StatelessWidget {
           ChatInputBox(
             textController: _chatTextController,
             onSendMessage: _handleSendMessage,
-          )
+          ),
+          const SizedBox(height: 16,),
         ],
       ),
     );

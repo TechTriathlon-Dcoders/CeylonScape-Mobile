@@ -1,3 +1,4 @@
+import 'package:CeylonScape/screens/try/unimplemented_screen.dart';
 import 'package:CeylonScape/screens/visa/entry_visa_form.dart';
 import 'package:CeylonScape/screens/visa/visa_menu_screen.dart';
 import 'package:CeylonScape/theme/colors.dart';
@@ -19,27 +20,27 @@ class VisaApplyScreen extends StatelessWidget {
     VisaMenuItem(
         label: 'Business Visa',
         icon: 'visa-type-2.svg',
-        route: EntryVisaForm()
+        route: UnImplementedScreen()
     ),
     VisaMenuItem(
         label: 'Medical Visa',
         icon: 'visa-type-3.svg',
-        route: EntryVisaForm()
+        route: UnImplementedScreen()
     ),
     VisaMenuItem(
         label: 'Transit Visa',
         icon: 'visa-type-4.svg',
-        route: EntryVisaForm()
+        route: UnImplementedScreen()
     ),
     VisaMenuItem(
         label: 'Residence Visa',
         icon: 'visa-type-5.svg',
-        route: EntryVisaForm()
+        route: UnImplementedScreen()
     ),
     VisaMenuItem(
         label: 'Diplomatic and \nOfficial Visa',
         icon: 'visa-type-6.svg',
-        route: EntryVisaForm()
+        route: UnImplementedScreen()
     ),
   ];
 
