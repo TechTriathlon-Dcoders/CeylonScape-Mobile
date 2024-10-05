@@ -35,41 +35,43 @@ class CheckVisaStatusScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: CeylonScapeColor.black0,
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Obx(() {
-            return AnotherStepper(
-              stepperList: stepList.asMap().entries.map((entry) => StepperData(
-                  title: StepperText(
-                    entry.value.title,
-                    textStyle: _visaController.visaApplicationStatus.value >= entry.key
-                        ? CeylonScapeFont.highlightAccent
-                        : CeylonScapeFont.highlightAccent.copyWith(
-                      color: CeylonScapeColor.black30
-                    ),
-                  ),
-                  subtitle: StepperText(
-                      entry.value.subTitle,
-                    textStyle: _visaController.visaApplicationStatus.value >= entry.key
-                        ? CeylonScapeFont.contentAccent.copyWith(
-                        color: CeylonScapeColor.black60
-                        ) : CeylonScapeFont.contentAccent.copyWith(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Obx(() {
+              return AnotherStepper(
+                stepperList: stepList.asMap().entries.map((entry) => StepperData(
+                    title: StepperText(
+                      entry.value.title,
+                      textStyle: _visaController.visaApplicationStatus.value >= entry.key
+                          ? CeylonScapeFont.highlightAccent
+                          : CeylonScapeFont.highlightAccent.copyWith(
                         color: CeylonScapeColor.black30
+                      ),
                     ),
-                  ),
-                  iconWidget: Container(
-                    decoration: BoxDecoration(
-                        color: _visaController.visaApplicationStatus.value >= entry.key
-                            ? CeylonScapeColor.primary50
-                            : CeylonScapeColor.black30,
-                        borderRadius: const BorderRadius.all(Radius.circular(30))),
-                  ))).toList(),
-              // stepperList: stepperData,
-              stepperDirection: Axis.vertical,
-              inverted: false,
-              activeIndex: 0,
-            );
-          }
+                    subtitle: StepperText(
+                        entry.value.subTitle,
+                      textStyle: _visaController.visaApplicationStatus.value >= entry.key
+                          ? CeylonScapeFont.contentAccent.copyWith(
+                          color: CeylonScapeColor.black60
+                          ) : CeylonScapeFont.contentAccent.copyWith(
+                          color: CeylonScapeColor.black30
+                      ),
+                    ),
+                    iconWidget: Container(
+                      decoration: BoxDecoration(
+                          color: _visaController.visaApplicationStatus.value >= entry.key
+                              ? CeylonScapeColor.primary50
+                              : CeylonScapeColor.black30,
+                          borderRadius: const BorderRadius.all(Radius.circular(30))),
+                    ))).toList(),
+                // stepperList: stepperData,
+                stepperDirection: Axis.vertical,
+                inverted: false,
+                activeIndex: 0,
+              );
+            }
+          ),
         ),
       ),
     );
